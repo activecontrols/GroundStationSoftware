@@ -1,0 +1,6 @@
+[submodule "mavlink"]
+	path = mavlink
+	url = https://github.com/mavlink/mavlink
+[submodule "ASTRAMessageDefinitions"]
+	path = ASTRAMessageDefinitions
+	url = https://github.com/activecontrols/ASTRAMessageDefinitions
