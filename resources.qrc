@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/imgs">
+        <file>PSP-AC-1Color-white.png</file>
+        <file>checkmark.png</file>
+    </qresource>
+</RCC>
