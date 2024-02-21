@@ -11,19 +11,16 @@ CONFIG += c++17
 SOURCES += \
     commdialog.cpp \
     launchwindow.cpp \
-    linegraph.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     commdialog.h \
     launchwindow.h \
-    linegraph.h \
     mainwindow.h
 
 FORMS += \
     launchwindow.ui \
-    linegraph.ui \
     mainwindow.ui
 
 # Default rules for deployment.

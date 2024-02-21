@@ -5,7 +5,7 @@
 #include <QTime>
 #include <QString>
 #include <QMessageBox>
-#include <QTimer>
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,13 +13,15 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    // Sets logo
     QPixmap logo_image{":/imgs/PSP-AC-1Color-white.png"};
     int w = ui->logo->width();
     int h = ui->logo->height();
-    ui->logo->setPixmap(logo_image.scaled(w, h, Qt::KeepAspectRatioByExpanding));
+    ui->logo->setPixmap(logo_image.scaled(w, h, Qt::KeepAspectRatio));
 
     QPixmap checkmark{":/imgs/checkmark.png"};
 
+    // Sets checkmarks
     int w2 = ui->mark_1->width();
     int h2 = ui->mark_1->height();
     ui->mark_1->setPixmap(checkmark.scaled(w2, h2, Qt::KeepAspectRatio));
@@ -31,13 +33,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->statusbar->addPermanentWidget(ui->connection_label);
     ui->statusbar->addPermanentWidget(ui->clock);
 
-    QTimer* timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, this, &MainWindow::startClock);
+    timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &MainWindow::updateClock);
     timer->start(1000);
 
     ui->connection_label->setStyleSheet("color: red");
 
-    // connect(ui->connect_action, SIGNAL(), , SLOT());
     // connect(ui->disconnect_action, SIGNAL(), , SLOT());
 }
 
@@ -46,9 +47,10 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::startClock()
+void MainWindow::updateClock()
 {
     ui->clock->setText(QTime::currentTime().toString("h:mm:ss ap"));
+    // std::cout << "Timer went off" << std::endl;
 }
 
 void MainWindow::showCOMConnected()

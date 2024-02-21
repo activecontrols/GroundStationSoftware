@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "launchwindow.h"
 #include "commdialog.h"
+#include "QTimer"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -19,7 +20,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void startClock();
+    void updateClock();
     void showCOMConnected();
     void showSuccessfulMemAlloc();
     void showUnsuccessfulMemAlloc();
@@ -28,6 +29,7 @@ private:
     Ui::MainWindow *ui;
     LaunchWindow *lw;
     CommDialog *cd;
+    QTimer *timer;
 
 private slots:
     void on_upload_telem_clicked();
