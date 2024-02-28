@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QPixMap>
+#include <QDateTime>
 #include <QTime>
 #include <QString>
 #include <QMessageBox>
@@ -12,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    log = new LogWindow(this);
 
     // Sets logo
     QPixmap logo_image{":/imgs/PSP-AC-1Color-white.png"};
@@ -39,6 +41,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->connection_label->setStyleSheet("color: red");
 
+    connect(this, &MainWindow::showCOMConnected, log, &LogWindow::addCOMConnected);
+    connect(this, &MainWindow::showSuccessfulMemAlloc, log, &LogWindow::addSuccessfulMemAlloc);
+    connect(this, &MainWindow::showUnsuccessfulMemAlloc, log, &LogWindow::addUnsuccessfulMemAlloc);
     // connect(ui->disconnect_action, SIGNAL(), , SLOT());
 }
 
@@ -56,26 +61,32 @@ void MainWindow::updateClock()
 void MainWindow::showCOMConnected()
 {
     ui->connection_label->setStyleSheet("color: green");
+    log->addCOMConnected();
 }
 
 void MainWindow::showSuccessfulMemAlloc()
 {
     QMessageBox::information(this, "Successful Memory Allocation", "Success");
     ui->statusbar->showMessage("Successful Memory Allocation", 5000);
+    log->addSuccessfulMemAlloc();
 }
 
 void MainWindow::showUnsuccessfulMemAlloc()
 {
     QMessageBox::warning(this, "Unsuccessful Memory Allocation", "Fail");
-    ui->statusbar->showMessage("Unsuccessful Memory Allocation", 1000);
+    ui->statusbar->showMessage("Unsuccessful Memory Allocation", 5000);
+    log->addUnsuccessfulMemAlloc();
 }
 
 void MainWindow::on_upload_telem_clicked()
 {
-    showCOMConnected();
-    showSuccessfulMemAlloc();
-    // showUnsuccessfulMemAlloc();
-
+    // Upload telemetry, and then receive message back to see what we write
+    if (1) {
+        showCOMConnected();
+        showSuccessfulMemAlloc();
+    } else {
+        // showUnsuccessfulMemAlloc();
+    }
 }
 
 void MainWindow::on_launch_button_released()
@@ -90,4 +101,11 @@ void MainWindow::on_connect_action_triggered()
     cd = new CommDialog(this);
     cd->show();
 }
+
+void MainWindow::on_log_action_triggered()
+{
+    log->show();
+}
+
+
 

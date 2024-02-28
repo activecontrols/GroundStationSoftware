@@ -1,4 +1,4 @@
-QT       += core gui charts serialport
+QT       += core gui charts serialport graphs quick
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -11,13 +11,17 @@ CONFIG += c++17
 SOURCES += \
     commdialog.cpp \
     launchwindow.cpp \
+    logwindow.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    myq3dscatter.cpp
 
 HEADERS += \
     commdialog.h \
     launchwindow.h \
-    mainwindow.h
+    logwindow.h \
+    mainwindow.h \
+    myq3dscatter.h
 
 FORMS += \
     launchwindow.ui \

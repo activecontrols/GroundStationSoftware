@@ -33,7 +33,7 @@
      <item>
       <widget class="QLabel" name="connection_label">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+        <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -74,10 +74,10 @@ color: rgb(20, 20, 20);</string>
    <widget class="QLabel" name="logo">
     <property name="geometry">
      <rect>
-      <x>640</x>
+      <x>599</x>
       <y>10</y>
-      <width>200</width>
-      <height>100</height>
+      <width>241</width>
+      <height>141</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -566,6 +566,8 @@ color: rgb(20, 20, 20);</string>
     </property>
     <addaction name="connect_action"/>
     <addaction name="disconnect_action"/>
+    <addaction name="separator"/>
+    <addaction name="log_action"/>
    </widget>
    <addaction name="menuConnection"/>
   </widget>
@@ -582,6 +584,11 @@ color: rgb(20, 20, 20);</string>
   <action name="disconnect_action">
    <property name="text">
     <string>Disconnect</string>
+   </property>
+  </action>
+  <action name="log_action">
+   <property name="text">
+    <string>Log</string>
    </property>
   </action>
  </widget>
