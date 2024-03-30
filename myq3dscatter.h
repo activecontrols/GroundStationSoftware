@@ -1,24 +1,23 @@
 #ifndef MYQ3DSCATTER_H
 #define MYQ3DSCATTER_H
 
-#include <QWidget>
-#include <Q3DScatter>
+#include <QtCore/qobject.h>
+#include <QtDataVisualization/q3dscatter.h>
 
-class MyQ3DScatter : public Q3DScatter
+class MyQ3DScatter : public QObject
 {
     Q_OBJECT
 public:
-    explicit MyQ3DScatter(QWidget *parent = nullptr);
+    MyQ3DScatter();
+    ~MyQ3DScatter();
 
-    int getItemCount();
-    void addData(qreal, qreal, qreal);
+    bool initialize();
+    QWidget *scatterWidget() { return m_scatterWidget; }
+
 private:
-    int m_itemCount;
-
-    QScatter3DSeries *scat_series;
-    QScatterDataArray *scat_array;
-    QScatterDataItem *ptrToDataArray;
-signals:
+    Q3DScatter *m_scatterGraph = nullptr;
+    QWidget *m_container = nullptr;
+    QWidget *m_scatterWidget = nullptr;
 };
 
-#endif // MYQ3DSCATTER_H
+#endif

@@ -1,39 +1,48 @@
 #include "myq3dscatter.h"
+#include "scatterdatamodifier.h"
 
-#include <Q3DTheme>
-#include <iostream>
-const int lowerNumberOfItems = 50;
+#include <QtWidgets/qboxlayout.h>
+#include <QtWidgets/qcheckbox.h>
+#include <QtWidgets/qcombobox.h>
+#include <QtWidgets/qlabel.h>
+#include <QtWidgets/qcommandlinkbutton.h>
 
-MyQ3DScatter::MyQ3DScatter(QWidget *parent)
-    : Q3DScatter(),
-    m_itemCount(lowerNumberOfItems)
+using namespace Qt::StringLiterals;
+
+MyQ3DScatter::MyQ3DScatter()
 {
-    setResizeMode(QQuickWidget::SizeRootObjectToView);
-    QScatterDataProxy *proxy = new QScatterDataProxy;
-    scat_series = new QScatter3DSeries(proxy);
-    scat_array = new QScatterDataArray;
-    *scat_array << QVector3D(0.5f, 0.5f, 0.5f) << QVector3D(-0.3f, -0.5f, -0.4f) << QVector3D(0.0f, -0.3f, 0.2f);
-    scat_series->dataProxy()->addItems(*scat_array);
-    addSeries(scat_series);
-
-    ptrToDataArray = &scat_array->first();
-
-    Q3DTheme *theme = new Q3DTheme(Q3DTheme::ThemeArmyBlue);
-    setActiveTheme(theme);
+    m_scatterGraph = new Q3DScatter();
 }
 
-int MyQ3DScatter::getItemCount() {
-    return m_itemCount;
-}
+MyQ3DScatter::~MyQ3DScatter() = default;
 
-void MyQ3DScatter::addData(qreal x, qreal y, qreal z) {
-    axisX()->setTitle("X");
-    axisY()->setTitle("Y");
-    axisZ()->setTitle("Z");
+bool MyQ3DScatter::initialize()
+{
+    if (!m_scatterGraph->hasContext())
+        return false;
 
-    scat_array->resize(m_itemCount);
-    ptrToDataArray->setPosition(QVector3D(x, y, z));
-    seriesList().at(0)->dataProxy()->resetArray(scat_array);
-    ptrToDataArray++;
-    std::cout << "New point" << std::endl;
+    m_scatterWidget = new QWidget;
+    auto *vLayout = new QVBoxLayout(m_scatterWidget);
+    m_container = QWidget::createWindowContainer(m_scatterGraph, m_scatterWidget);
+    m_container->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_container->setFocusPolicy(Qt::StrongFocus);
+    vLayout->addWidget(m_container, 1);
+
+    auto *hLayout = new QHBoxLayout();
+    vLayout->addLayout(hLayout);
+
+    QSlider *timeSlider = new QSlider();
+
+
+    auto *modifier = new ScatterDataModifier(m_scatterGraph, this);
+
+    // QObject::connect(cameraButton, &QCommandLinkButton::clicked, modifier,
+    //                  &ScatterDataModifier::changePresetCamera);
+    // QObject::connect(itemCountButton, &QCommandLinkButton::clicked, modifier,
+    //                  &ScatterDataModifier::toggleItemCount);
+
+    QObject::connect(m_scatterGraph, &Q3DScatter::shadowQualityChanged, modifier,
+                     &ScatterDataModifier::shadowQualityUpdatedByVisual);
+
+    return true;
 }

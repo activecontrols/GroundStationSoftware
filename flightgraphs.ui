@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FlightGraphs</class>
+ <widget class="QWidget" name="FlightGraphs">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>919</width>
+    <height>624</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" rowspan="2" colspan="2">
+    <widget class="QWidget" name="placeholder" native="true">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QChartView" name="graph_3"/>
+   </item>
+   <item row="0" column="2">
+    <widget class="QChartView" name="graph_1"/>
+   </item>
+   <item row="1" column="2">
+    <widget class="QChartView" name="graph_4"/>
+   </item>
+   <item row="2" column="1">
+    <widget class="QChartView" name="graph_5"/>
+   </item>
+   <item row="2" column="2">
+    <widget class="QChartView" name="graph_2"/>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QChartView</class>
+   <extends>QGraphicsView</extends>
+   <header>QtCharts</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

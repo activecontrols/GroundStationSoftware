@@ -1,10 +1,13 @@
 #include "mainwindow.h"
 
 #include <QApplication>
-#include <QtGraphs>
+#include <QtWidgets/qmessagebox.h>
 
-int main(int argc, char *argv[])
+using namespace Qt::StringLiterals;
+
+int main(int argc, char **argv)
 {
+    qputenv("QSG_RHI_BACKEND", "opengl");
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
