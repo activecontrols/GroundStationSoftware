@@ -14,8 +14,21 @@ public class Client {
             System.out.println("No ports found, exiting!");
             return;
         }
-		System.out.println("Using port: " + ports[0].getSystemPortName());
-        Client client = new Client(ports[0]);
+        int i = 0;
+        int p = 0;
+        for (SerialPort port : ports) {
+            System.out.println(port.getSystemPortName());
+            if ((port.getSystemPortName().contains("usbmodem")
+                    || port.getSystemPortName().contains("usbserial"))
+                    && port.getSystemPortName().contains("tty")) {
+                p = i;
+                break;
+            }
+            i += 1;
+        }
+		System.out.println("Using port: " + ports[p].getSystemPortName());
+        ports[p].setBaudRate(57600);
+        Client client = new Client(ports[p]);
 
         while (true) {
             client.spin();
@@ -55,6 +68,7 @@ public class Client {
         for (byte c : readBuffer) {
             MAVLinkPacket packet = this.parser.mavlink_parse_char(c);
             if (packet != null) {
+                // System.out.printf("Got packet id: %d\n", packet.msgid);
                 switch (packet.msgid) {
                     case 0:
                         msg_heartbeat hb = new msg_heartbeat(packet);
