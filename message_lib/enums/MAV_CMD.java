@@ -19,4 +19,3 @@ public class MAV_CMD {
    public static final int MAV_CMD_MISSION_LOAD_SD = 51801; /* Load a trajectory mission from the SD card (/missions/mission{number}.atf) into PSRAM. |the mission number to load| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)|  */
    public static final int MAV_CMD_ENUM_END = 51802; /*  | */
 }
-            

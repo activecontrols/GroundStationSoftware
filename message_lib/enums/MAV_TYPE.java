@@ -56,4 +56,3 @@ public class MAV_TYPE {
    public static final int MAV_TYPE_GENERIC_MULTIROTOR = 43; /* Generic multirotor that does not fit into a specific type or whose type is unknown | */
    public static final int MAV_TYPE_ENUM_END = 44; /*  | */
 }
-            

@@ -271,6 +271,8 @@ public class MAVLinkPacket implements Serializable {
                 return  new msg_param_value(this);
                         case msg_param_set.MAVLINK_MSG_ID_PARAM_SET:
                 return  new msg_param_set(this);
+                        case msg_raw_imu.MAVLINK_MSG_ID_RAW_IMU:
+                return  new msg_raw_imu(this);
                         case msg_command_long.MAVLINK_MSG_ID_COMMAND_LONG:
                 return  new msg_command_long(this);
                         case msg_command_ack.MAVLINK_MSG_ID_COMMAND_ACK:
@@ -283,8 +285,6 @@ public class MAVLinkPacket implements Serializable {
                 return  new msg_protocol_version(this);
                         case msg_controller_status.MAVLINK_MSG_ID_CONTROLLER_STATUS:
                 return  new msg_controller_status(this);
-                        case msg_traj_load_sd_card.MAVLINK_MSG_ID_TRAJ_LOAD_SD_CARD:
-                return  new msg_traj_load_sd_card(this);
                         case msg_traj_info.MAVLINK_MSG_ID_TRAJ_INFO:
                 return  new msg_traj_info(this);
                         case msg_traj_req_k1.MAVLINK_MSG_ID_TRAJ_REQ_K1:
@@ -301,6 +301,8 @@ public class MAVLinkPacket implements Serializable {
                 return  new msg_traj_pt(this);
                         case msg_traj_ack.MAVLINK_MSG_ID_TRAJ_ACK:
                 return  new msg_traj_ack(this);
+                        case msg_command_simple.MAVLINK_MSG_ID_COMMAND_SIMPLE:
+                return  new msg_command_simple(this);
             
             default:
                 return null;

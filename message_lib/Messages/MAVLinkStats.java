@@ -36,10 +36,14 @@ public class MAVLinkStats /* implements Serializable */{
     /**
      * Check the new received packet to see if has lost someone between this and
      * the last packet
-     * 
+     *
      * @param packet Packet that should be checked
      */
     public void newPacket(MAVLinkPacket packet) {
+        if (ignoreRadioPackets) {
+            return;
+        }
+
         if (systemStats[packet.sysid] == null) {
             // only allocate stats for systems that exist on the network
             systemStats[packet.sysid] = new SystemStat();

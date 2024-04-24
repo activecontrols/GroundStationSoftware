@@ -22,4 +22,3 @@ public class MAV_RESULT {
    public static final int MAV_RESULT_COMMAND_UNSUPPORTED_MAV_FRAME = 9; /* Command is invalid because a frame is required and the specified frame is not supported. | */
    public static final int MAV_RESULT_ENUM_END = 10; /*  | */
 }
-            

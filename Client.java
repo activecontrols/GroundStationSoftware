@@ -59,7 +59,8 @@ public class Client {
             this.port.writeBytes(data, data.length);
             this.last_heartbeat = now;
             System.out.println("Sent heartbeat");
-            this.sendMissionLoadSD(14);
+            this.sendSimpleCommand("GO");
+            // this.sendMissionLoadSD(14);
         }
         // Read
         if (this.port.bytesAvailable() <= 0) return;
@@ -109,6 +110,19 @@ public class Client {
     }
 
     public void sendCommand(msg_command_long command) {
+        MAVLinkPacket cmd_packed = command.pack();
+        byte[] data = cmd_packed.encodePacket();
+        this.port.writeBytes(data, data.length);
+    }
+
+    public void sendSimpleCommand(String cmdString) {
+        msg_command_simple command = new msg_command_simple();
+        int i = 0;
+        for (byte b : cmdString.getBytes()) {
+            command.command[i] = b;
+            i += 1;
+        }
+        System.out.printf("Sending command: %s\r\n", cmdString);
         MAVLinkPacket cmd_packed = command.pack();
         byte[] data = cmd_packed.encodePacket();
         this.port.writeBytes(data, data.length);
