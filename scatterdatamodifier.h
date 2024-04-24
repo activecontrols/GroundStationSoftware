@@ -28,6 +28,7 @@ public Q_SLOTS:
     void changeTheme(int theme);
     void changeShadowQuality(int quality);
     void shadowQualityUpdatedByVisual(QAbstract3DGraph::ShadowQuality shadowQuality);
+    void toggleTimeStamp(qreal time);
 
 Q_SIGNALS:
     void backgroundEnabledChanged(bool enabled);

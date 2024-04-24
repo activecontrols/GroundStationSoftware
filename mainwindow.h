@@ -19,9 +19,14 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+signals:
+    void change();
+
 public slots:
+    void initialize();
     void updateClock();
-    // void showCOMConnected();
+    void showCOMConnection();
     // void showSuccessfulMemAlloc();
     // void showUnsuccessfulMemAlloc();
 
@@ -30,6 +35,7 @@ private:
     LogWindow *logWindow;
     CommDialog *commDialog;
     QTimer *timer;
+
 
 private slots:
     // void on_upload_telem_clicked();
@@ -40,5 +46,6 @@ private slots:
     void on_actionFlight_Data_triggered();
     void on_actionConnect_triggered();
     void on_actionFlight_Logs_triggered();
+    void on_action3D_Graph_triggered();
 };
 #endif // MAINWINDOW_H

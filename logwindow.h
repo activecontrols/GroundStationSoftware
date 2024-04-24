@@ -18,6 +18,7 @@ public:
 public slots:
     void addLog(const QString &s);
     void addCOMConnected();
+    void addCOMDisconnected();
     void addSuccessfulMemAlloc();
     void addUnsuccessfulMemAlloc();
 private:

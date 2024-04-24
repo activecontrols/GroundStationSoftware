@@ -1,4 +1,4 @@
-QT    += core gui serialport datavisualization charts
+QT    += core gui serialport datavisualization charts multimedia multimediawidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -10,10 +10,11 @@ CONFIG += c++17
 
 SOURCES += \
     axesinputhandler.cpp \
+    camera.cpp \
     commdialog.cpp \
-    customformatter.cpp \
     flightdata.cpp \
     flightgraphs.cpp \
+    linegraph.cpp \
     logwindow.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -22,10 +23,11 @@ SOURCES += \
 
 HEADERS += \
     axesinputhandler.h \
+    camera.h \
     commdialog.h \
-    customformatter.h \
     flightdata.h \
     flightgraphs.h \
+    linegraph.h \
     logwindow.h \
     mainwindow.h \
     myq3dscatter.h \

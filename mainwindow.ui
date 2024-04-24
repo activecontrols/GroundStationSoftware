@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>967</width>
-    <height>769</height>
+    <width>1000</width>
+    <height>775</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
@@ -20,10 +23,19 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
-      <property name="currentIndex">
-       <number>1</number>
+      <property name="styleSheet">
+       <string notr="true">font: 12pt &quot;8514oem&quot;;
+background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0.0913462 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));
+color: rgb(0, 0, 0);</string>
       </property>
-      <widget class="FlightData" name="flightData"/>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="FlightData" name="flightData">
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+      </widget>
       <widget class="FlightGraphs" name="flightGraphs"/>
      </widget>
     </item>
@@ -54,8 +66,8 @@ color: rgb(255, 255, 255);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>967</width>
-     <height>26</height>
+     <width>1000</width>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -64,9 +76,16 @@ color: rgb(255, 255, 255);</string>
     </property>
     <addaction name="actionExport_Data"/>
    </widget>
+   <widget class="QMenu" name="menuVisuals">
+    <property name="title">
+     <string>Visuals</string>
+    </property>
+    <addaction name="action3D_Graph"/>
+    <addaction name="action2D_Graphs"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuVisuals"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
    <property name="sizePolicy">
     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -102,6 +121,9 @@ padding: 5px 5px 0px 0px;
 margin:0px 5px;
 spacing:40px;</string>
    </property>
+   <property name="movable">
+    <bool>true</bool>
+   </property>
    <property name="iconSize">
     <size>
      <width>50</width>
@@ -119,7 +141,7 @@ spacing:40px;</string>
    </attribute>
    <addaction name="actionFlight_Data"/>
    <addaction name="actionFlight_Graphs"/>
-   <addaction name="separator"/>
+   <addaction name="actionFlight_Tests"/>
    <addaction name="actionFlight_Logs"/>
    <addaction name="actionConnect"/>
   </widget>
@@ -166,6 +188,11 @@ spacing:40px;</string>
    </property>
   </action>
   <action name="actionConnect">
+   <property name="icon">
+    <iconset>
+     <normalon>:/imgs/connect_icon.png</normalon>
+    </iconset>
+   </property>
    <property name="text">
     <string>Connect</string>
    </property>
@@ -174,6 +201,11 @@ spacing:40px;</string>
    </property>
   </action>
   <action name="actionFlight_Logs">
+   <property name="icon">
+    <iconset>
+     <normalon>:/imgs/flight_logs.png</normalon>
+    </iconset>
+   </property>
    <property name="text">
     <string>Flight Logs</string>
    </property>
@@ -185,6 +217,29 @@ spacing:40px;</string>
    </property>
    <property name="priority">
     <enum>QAction::NormalPriority</enum>
+   </property>
+  </action>
+  <action name="action3D_Graph">
+   <property name="text">
+    <string>3D Graph</string>
+   </property>
+  </action>
+  <action name="action2D_Graphs">
+   <property name="text">
+    <string>2D Graphs</string>
+   </property>
+  </action>
+  <action name="actionFlight_Tests">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/imgs/Flight Tests.png</normaloff>
+     <normalon>:/imgs/flight_tests.png</normalon>:/imgs/Flight Tests.png</iconset>
+   </property>
+   <property name="text">
+    <string>Flight Tests</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::ApplicationSpecificRole</enum>
    </property>
   </action>
  </widget>

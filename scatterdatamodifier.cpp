@@ -31,7 +31,7 @@ ScatterDataModifier::ScatterDataModifier(Q3DScatter *scatter, QObject *parent) :
     m_graph->activeTheme()->setType(Q3DTheme::ThemeStoneMoss);
     m_graph->setShadowQuality(QAbstract3DGraph::ShadowQualitySoftHigh);
     m_graph->scene()->activeCamera()->setCameraPreset(Q3DCamera::CameraPresetFront);
-    m_graph->scene()->activeCamera()->setZoomLevel(80.f);
+    m_graph->scene()->activeCamera()->setZoomLevel(100.f);
     //! [0]
 
     //! [1]
@@ -71,6 +71,8 @@ void ScatterDataModifier::addData()
     dataArray->reserve(m_itemCount);
     //! [4]
 
+    m_graph->seriesList().at(0)->dataProxy()->addItem(QScatterDataItem(randVector()));
+    /*
 #ifdef RANDOM_SCATTER
     for (int i = 0; i < m_itemCount; ++i)
         dataArray->append(QScatterDataItem(randVector()));
@@ -91,6 +93,7 @@ void ScatterDataModifier::addData()
     //! [6]
     m_graph->seriesList().at(0)->dataProxy()->resetArray(dataArray);
     //! [6]
+    */
 }
 
 void ScatterDataModifier::changeStyle(int style)
@@ -185,4 +188,9 @@ QVector3D ScatterDataModifier::randVector()
     const auto y = float(generator->bounded(100)) / 100.0f - float(generator->bounded(100)) / 100.0f;
     const auto z = float(generator->bounded(100)) / 2.0f - float(generator->bounded(100)) / 2.0f;
     return {x, y, z};
+}
+
+void ScatterDataModifier::toggleTimeStamp(qreal time) {
+    qDebug() << "Toggling";
+    return;
 }

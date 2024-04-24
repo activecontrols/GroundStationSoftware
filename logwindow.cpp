@@ -23,8 +23,14 @@ LogWindow::LogWindow(QWidget *parent)
     // connect();
 }
 
-void LogWindow::addCOMConnected() {
+void LogWindow::addCOMConnected()
+{
     addLog("COM connected");
+}
+
+void LogWindow::addCOMDisconnected()
+{
+    addLog("COM disconnected");
 }
 
 void LogWindow::addSuccessfulMemAlloc() {

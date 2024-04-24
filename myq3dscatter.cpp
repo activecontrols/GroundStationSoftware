@@ -28,13 +28,16 @@ bool MyQ3DScatter::initialize()
     m_container->setFocusPolicy(Qt::StrongFocus);
     vLayout->addWidget(m_container, 1);
 
-    auto *hLayout = new QHBoxLayout();
-    vLayout->addLayout(hLayout);
+    QSlider *timeSlider = new QSlider(Qt::Orientation::Horizontal);
+    timeSlider->setSliderDown(false);
+    timeSlider->setTickInterval(5);
+    timeSlider->setTickPosition(QSlider::TicksAbove);
 
-    QSlider *timeSlider = new QSlider();
+    vLayout->addWidget(timeSlider);
 
+    static auto *modifier = new ScatterDataModifier(m_scatterGraph, this);
 
-    auto *modifier = new ScatterDataModifier(m_scatterGraph, this);
+    QObject::connect(timeSlider, &QSlider::valueChanged, modifier, &ScatterDataModifier::toggleTimeStamp);
 
     // QObject::connect(cameraButton, &QCommandLinkButton::clicked, modifier,
     //                  &ScatterDataModifier::changePresetCamera);
@@ -44,5 +47,18 @@ bool MyQ3DScatter::initialize()
     QObject::connect(m_scatterGraph, &Q3DScatter::shadowQualityChanged, modifier,
                      &ScatterDataModifier::shadowQualityUpdatedByVisual);
 
+    QObject::connect(this, &MyQ3DScatter::receiveChange, modifier, &ScatterDataModifier::addData);
+
     return true;
+}
+
+void MyQ3DScatter::addData()
+{
+    qDebug() << "Run";
+    // m_scatterGraph->seriesList().at(0)->dataProxy()->addItem();
+}
+
+void MyQ3DScatter::receiveChange()
+{
+    qDebug() << "CHANGED";
 }

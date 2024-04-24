@@ -12,7 +12,12 @@ public:
     ~MyQ3DScatter();
 
     bool initialize();
+    void addData();
     QWidget *scatterWidget() { return m_scatterWidget; }
+
+
+public slots:
+    void receiveChange();
 
 private:
     Q3DScatter *m_scatterGraph = nullptr;
