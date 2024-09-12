@@ -1,4 +1,4 @@
-QT       += core gui charts serialport
+QT    += core gui serialport datavisualization charts multimedia multimediawidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -9,21 +9,33 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    axesinputhandler.cpp \
+    camera.cpp \
     commdialog.cpp \
-    launchwindow.cpp \
+    flightdata.cpp \
+    flightgraphs.cpp \
     linegraph.cpp \
+    logwindow.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    myq3dscatter.cpp \
+    scatterdatamodifier.cpp
 
 HEADERS += \
+    axesinputhandler.h \
+    camera.h \
     commdialog.h \
-    launchwindow.h \
+    flightdata.h \
+    flightgraphs.h \
     linegraph.h \
-    mainwindow.h
+    logwindow.h \
+    mainwindow.h \
+    myq3dscatter.h \
+    scatterdatamodifier.h
 
 FORMS += \
-    launchwindow.ui \
-    linegraph.ui \
+    flightdata.ui \
+    flightgraphs.ui \
     mainwindow.ui
 
 # Default rules for deployment.
@@ -33,3 +45,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES += \
+    README.md

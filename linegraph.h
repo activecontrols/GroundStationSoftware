@@ -1,23 +1,27 @@
 #ifndef LINEGRAPH_H
 #define LINEGRAPH_H
 
-#include <QWidget>
-#include <QChartView>
+#include <QObject>
+#include <QtCharts/QLineSeries>
 
-namespace Ui {
-class LineGraph;
-}
-
-class LineGraph : public QChartView
+class LineGraph : public QObject
 {
     Q_OBJECT
-
 public:
-    explicit LineGraph(QWidget *parent = nullptr);
-    ~LineGraph();
+    explicit LineGraph(QObject *parent = nullptr);
 
+    void initialize(QString, QString);
+    QChart *getChart() { return chart; }
+
+    void addData(qreal, qreal);
 private:
-    Ui::LineGraph *ui;
+    QLineSeries *series;
+    QChart *chart;
+    QList<QPointF> *list;
+    bool autoScroll = true;
+
+
+signals:
 };
 
 #endif // LINEGRAPH_H

@@ -2,5 +2,11 @@
     <qresource prefix="/imgs">
         <file>PSP-AC-1Color-white.png</file>
         <file>checkmark.png</file>
+        <file>flight_data.png</file>
+        <file>flight_graph.png</file>
+        <file>background.jpg</file>
+        <file>flight_tests.png</file>
+        <file>flight_logs.png</file>
+        <file>connect_icon.png</file>
     </qresource>
 </RCC>

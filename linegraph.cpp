@@ -1,71 +1,45 @@
 #include "linegraph.h"
-#include "ui_linegraph.h"
 
-#include <QtWidgets/QMainWindow>
-
-// Widget used to display charts
-#include <QtCharts/QChartView>
-
-// Displays the color used to represent each
-// QBarSet
-#include <QtCharts/QLegend>
-
-// Used to create a line chart
+#include <QtCharts>
 #include <QtCharts/QLineSeries>
 
-// Used to change names on axis
-#include <QtCharts/QCategoryAxis>
-
-LineGraph::LineGraph(QWidget *parent)
-    : QChartView(parent)
-    , ui(new Ui::LineGraph)
+LineGraph::LineGraph(QObject *parent)
+    : QObject{parent}
 {
-    ui->setupUi(this);
+    chart = new QChart();
+    series = new QLineSeries();
+    list = new QList<QPointF>();
+}
 
-    QLineSeries *series = new QLineSeries();
-    series->append(0, 16);
-    series->append(1, 25);
-    series->append(2, 24);
-    series->append(3, 19);
-    series->append(4, 33);
-    series->append(5, 25);
-    series->append(6, 34);
+void LineGraph::initialize(QString title, QString yAxis) {
+    chart->setTheme(QChart::ChartTheme(QChart::ChartThemeDark));
 
-    // Create chart, add data, hide legend, and add axis
-    QChart *chart = new QChart();
     chart->legend()->hide();
     chart->addSeries(series);
     chart->createDefaultAxes();
+    chart->axes(Qt::Horizontal).back()->setRange(0, 10);
+    chart->axes(Qt::Vertical).back()->setRange(-10, 10);
+    chart->axes(Qt::Horizontal).back()->setTitleText("Time (sec)");
+    chart->axes(Qt::Vertical).back()->setTitleText(yAxis);
 
-    // Customize the title font
-    QFont font;
-    font.setPixelSize(18);
+    QFont font = QFont("8514oem");
+    font.setPixelSize(8);
     chart->setTitleFont(font);
-    chart->setTitleBrush(QBrush(Qt::black));
-    chart->setTitle("Gyroscopes");
+    // chart->setTitleBrush(QBrush(Qt::black));
+    chart->setTitle(title);
 
-    // Change the line color and weight
-    QPen pen(QRgb(0x000000));
-    pen.setWidth(5);
+    QPen pen(QRgb(0xDAAA00));
+    pen.setWidth(2);
     series->setPen(pen);
 
-    chart->setAnimationOptions(QChart::AllAnimations);
-
-    // Change the x axis categories
-    QCategoryAxis *axisX = new QCategoryAxis();
-    axisX->append("0",0);
-    axisX->append("1",1);
-    axisX->append("2",2);
-    axisX->append("3",3);
-    axisX->append("4",4);
-    axisX->append("5",5);
-    axisX->append("6",6);
-    chart->setAxisX(axisX, series);
-
-    setChart(chart);
+    chart->setAnimationOptions(QChart::SeriesAnimations);
 }
 
-LineGraph::~LineGraph()
-{
-    delete ui;
+void LineGraph::addData(qreal time, qreal value) {
+    QPointF dataPoint = QPointF(time, value);
+    *list << dataPoint;
+    *series << dataPoint;
+    if (autoScroll && time > 10.0f) {
+        chart->axes(Qt::Horizontal).back()->setRange(time - 10.0f, time);
+    }
 }
