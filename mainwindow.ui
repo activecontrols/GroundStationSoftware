@@ -55,7 +55,7 @@ color: rgb(255, 255, 255);</string>
        <string>-:--:--</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
       </property>
      </widget>
     </item>
@@ -131,7 +131,7 @@ spacing:40px;</string>
     </size>
    </property>
    <property name="toolButtonStyle">
-    <enum>Qt::ToolButtonTextUnderIcon</enum>
+    <enum>Qt::ToolButtonStyle::ToolButtonTextUnderIcon</enum>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
@@ -153,8 +153,8 @@ spacing:40px;</string>
   <action name="actionFlight_Data">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/imgs/flight_data.png</normaloff>
-     <normalon>:/imgs/data_check.jpg</normalon>:/imgs/flight_data.png</iconset>
+     <normaloff>:/assets/flight_data.png</normaloff>
+     <normalon>:/imgs/data_check.jpg</normalon>:/assets/flight_data.png</iconset>
    </property>
    <property name="text">
     <string>Flight Data</string>
@@ -166,13 +166,13 @@ spacing:40px;</string>
     </font>
    </property>
    <property name="menuRole">
-    <enum>QAction::ApplicationSpecificRole</enum>
+    <enum>QAction::MenuRole::ApplicationSpecificRole</enum>
    </property>
   </action>
   <action name="actionFlight_Graphs">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/imgs/flight_graph.png</normaloff>:/imgs/flight_graph.png</iconset>
+     <normaloff>:/assets/flight_graph.png</normaloff>:/assets/flight_graph.png</iconset>
    </property>
    <property name="text">
     <string>Flight Graphs</string>
@@ -184,27 +184,27 @@ spacing:40px;</string>
     </font>
    </property>
    <property name="menuRole">
-    <enum>QAction::ApplicationSpecificRole</enum>
+    <enum>QAction::MenuRole::ApplicationSpecificRole</enum>
    </property>
   </action>
   <action name="actionConnect">
    <property name="icon">
-    <iconset>
-     <normalon>:/imgs/connect_icon.png</normalon>
-    </iconset>
+    <iconset resource="resources.qrc">
+     <normaloff>:/assets/connect_icon.png</normaloff>
+     <normalon>:/imgs/connect_icon.png</normalon>:/assets/connect_icon.png</iconset>
    </property>
    <property name="text">
     <string>Connect</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::ApplicationSpecificRole</enum>
+    <enum>QAction::MenuRole::ApplicationSpecificRole</enum>
    </property>
   </action>
   <action name="actionFlight_Logs">
    <property name="icon">
-    <iconset>
-     <normalon>:/imgs/flight_logs.png</normalon>
-    </iconset>
+    <iconset resource="resources.qrc">
+     <normaloff>:/assets/flight_logs.png</normaloff>
+     <normalon>:/imgs/flight_logs.png</normalon>:/assets/flight_logs.png</iconset>
    </property>
    <property name="text">
     <string>Flight Logs</string>
@@ -213,10 +213,10 @@ spacing:40px;</string>
     <string>Flight Logs</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::ApplicationSpecificRole</enum>
+    <enum>QAction::MenuRole::ApplicationSpecificRole</enum>
    </property>
    <property name="priority">
-    <enum>QAction::NormalPriority</enum>
+    <enum>QAction::Priority::NormalPriority</enum>
    </property>
   </action>
   <action name="action3D_Graph">
@@ -231,15 +231,15 @@ spacing:40px;</string>
   </action>
   <action name="actionFlight_Tests">
    <property name="icon">
-    <iconset>
-     <normaloff>:/imgs/Flight Tests.png</normaloff>
-     <normalon>:/imgs/flight_tests.png</normalon>:/imgs/Flight Tests.png</iconset>
+    <iconset resource="resources.qrc">
+     <normaloff>:/assets/flight_tests.png</normaloff>
+     <normalon>:/imgs/flight_tests.png</normalon>:/assets/flight_tests.png</iconset>
    </property>
    <property name="text">
     <string>Flight Tests</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::ApplicationSpecificRole</enum>
+    <enum>QAction::MenuRole::ApplicationSpecificRole</enum>
    </property>
   </action>
  </widget>

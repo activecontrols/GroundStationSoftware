@@ -8,29 +8,34 @@ CONFIG += c++17
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+INCLUDEPATH += pages\
+               graphs\
+
 SOURCES += \
     axesinputhandler.cpp \
     camera.cpp \
     commdialog.cpp \
-    flightdata.cpp \
-    flightgraphs.cpp \
-    linegraph.cpp \
+    data.cpp \
+    graphs/linegraph.cpp \
+    graphs/myq3dscatter.cpp \
     logwindow.cpp \
     main.cpp \
     mainwindow.cpp \
-    myq3dscatter.cpp \
+    pages/flightdata.cpp \
+    pages/flightgraphs.cpp \
     scatterdatamodifier.cpp
 
 HEADERS += \
     axesinputhandler.h \
     camera.h \
     commdialog.h \
-    flightdata.h \
-    flightgraphs.h \
-    linegraph.h \
+    data.h \
+    graphs/linegraph.h \
+    graphs/myq3dscatter.h \
     logwindow.h \
     mainwindow.h \
-    myq3dscatter.h \
+    pages/flightdata.h \
+    pages/flightgraphs.h \
     scatterdatamodifier.h
 
 FORMS += \
@@ -47,4 +52,4 @@ RESOURCES += \
     resources.qrc
 
 DISTFILES += \
-    README.md
+    README.md \

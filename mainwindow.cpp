@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "pages/flightdata.h"
 #include "ui_mainwindow.h"
 
 #include <QDateTime>
@@ -7,6 +8,7 @@
 #include <QMessageBox>
 #include <QStackedWidget>
 #include <QDebug>
+#include <QSerialPort>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -35,12 +37,35 @@ MainWindow::MainWindow(QWidget *parent)
     connect(timer, &QTimer::timeout, this, &MainWindow::updateClock);
     timer->start(1000);
 
+
+    QSerialPort *serial = new QSerialPort(this);
+    serial->setPortName("COM1");  // Replace with the correct COM port
+    serial->setBaudRate(QSerialPort::Baud9600);
+    serial->setDataBits(QSerialPort::Data8);
+    serial->setParity(QSerialPort::NoParity);
+    serial->setStopBits(QSerialPort::OneStop);
+    serial->setFlowControl(QSerialPort::NoFlowControl);
+
+    if (serial->open(QIODevice::ReadOnly)) {
+        connect(serial, &QSerialPort::readyRead, this, &Mainwindow::onDataReceived);
+    } else {
+        // Handle error
+    }
+
     QObject::connect(this, &MainWindow::change, ui->flightGraphs->scatter, &MyQ3DScatter::receiveChange);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::onDataReceived()
+{
+    QByteArray data = serial->readAll();
+    QString telemetryStr = QString::fromUtf8(data);
+
+    emit telemetryDataReceived(data);
 }
 
 void MainWindow::initialize()

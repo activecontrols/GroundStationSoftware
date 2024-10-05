@@ -1,8 +1,8 @@
 #ifndef FLIGHTGRAPHS_H
 #define FLIGHTGRAPHS_H
 
-#include "linegraph.h"
-#include "myq3dscatter.h"
+#include "graphs/linegraph.h"
+#include "graphs/myq3dscatter.h"
 
 #include <QWidget>
 #include <QtCharts>

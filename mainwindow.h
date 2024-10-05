@@ -21,6 +21,7 @@ public:
     ~MainWindow();
 
 signals:
+    void telemetryDataReceived(const QByteArray &data);
     void change();
 
 public slots:
@@ -35,6 +36,7 @@ private:
     LogWindow *logWindow;
     CommDialog *commDialog;
     QTimer *timer;
+
 
 
 private slots:

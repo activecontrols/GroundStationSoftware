@@ -11,16 +11,19 @@ steps to run the code yourself.
 
 - Make a Qt account with the educational license
 - Download QtCreator with desktop modules
-- Find the Qt Maintenance Tool and download separately these packages (make sure to get the latest 6.62 version)
+- Find the Qt Maintenance Tool and download separately these packages (make sure to get the latest 6.7 version)
     * serialport
     * graphs
     * charts
+    * datavisualization
+    * multimedia
+    * multimediawidgets
 - Build and Run
 
-## Running Code
+## How This Program Runs
 
-    Add code blocks with
-    four spaces at the front.
+This program is currently a combination of UI form files and widget-based files.
+
     
 ## Debugging
 

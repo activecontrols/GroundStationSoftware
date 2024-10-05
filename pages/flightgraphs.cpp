@@ -1,6 +1,6 @@
 #include "flightgraphs.h"
 #include "ui_flightgraphs.h"
-#include "myq3dscatter.h"
+#include "graphs/myq3dscatter.h"
 
 #include <QMessageBox>
 #include <QPlainTextEdit>

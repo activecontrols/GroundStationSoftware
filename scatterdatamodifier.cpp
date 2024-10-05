@@ -23,38 +23,26 @@ ScatterDataModifier::ScatterDataModifier(Q3DScatter *scatter, QObject *parent) :
     m_graph(scatter),
     m_itemCount(lowerNumberOfItems),
     m_curveDivider(lowerCurveDivider),
-    //! [7]
     m_inputHandler(new AxesInputHandler(scatter))
-//! [7]
 {
-    //! [0]
     m_graph->activeTheme()->setType(Q3DTheme::ThemeStoneMoss);
     m_graph->setShadowQuality(QAbstract3DGraph::ShadowQualitySoftHigh);
     m_graph->scene()->activeCamera()->setCameraPreset(Q3DCamera::CameraPresetFront);
     m_graph->scene()->activeCamera()->setZoomLevel(100.f);
-    //! [0]
 
-    //! [1]
     auto *proxy = new QScatterDataProxy;
     auto *series = new QScatter3DSeries(proxy);
     series->setItemLabelFormat(u"@xTitle: @xLabel @yTitle: @yLabel @zTitle: @zLabel"_s);
     series->setMeshSmooth(m_smooth);
     m_graph->addSeries(series);
-    //! [1]
 
-    //! [8]
     // Give ownership of the handler to the graph and make it the active handler
     m_graph->setActiveInputHandler(m_inputHandler);
-    //! [8]
 
-    //! [9]
     // Give our axes to the input handler
     m_inputHandler->setAxes(m_graph->axisX(), m_graph->axisZ(), m_graph->axisY());
-    //! [9]
 
-    //! [2]
     addData();
-    //! [2]
 }
 
 void ScatterDataModifier::addData()

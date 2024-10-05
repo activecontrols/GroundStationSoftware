@@ -26,9 +26,12 @@ signals:
 
 private slots:
     void on_launchButton_clicked();
-    void uploadTelem();
+    void uploadTelem(qreal k_val, qreal p_val, qreal n_val, qreal m_val, qreal N_val);
 
     // void receiveCamera();
+
+    void on_uploadButton_clicked();
+    void updateTelemetryDisplay(const QByteArray &data);
 
 private:
     Ui::FlightData *ui;
