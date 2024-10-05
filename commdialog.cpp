@@ -26,7 +26,7 @@ CommDialog::CommDialog(QWidget *parent) :
     mainLayout->addWidget(m_statusLabel, 4, 0, 1, 5);
     setLayout(mainLayout);
 
-    setWindowTitle(tr("Comms Receiver"));
+    setWindowTitle(tr("COM Port Connection"));
     m_serialPortComboBox->setFocus();
 
     // connect(m_runButton, &QPushButton::clicked, this, &CommDialog::startReceiver);

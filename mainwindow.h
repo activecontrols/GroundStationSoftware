@@ -43,6 +43,7 @@ private:
 
 
 private slots:
+    void onDataReceived();
     // void on_upload_telem_clicked();
     // void on_launch_button_released();
     // void on_connect_action_triggered();

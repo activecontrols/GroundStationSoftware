@@ -1,15 +1,26 @@
 #ifndef TELEMETRYMODEL_H
 #define TELEMETRYMODEL_H
 
-#include <QObject>
+#include <QAbstractTableModel>
+#include "telemetrydata.h"
 
-class TelemetryModel : public QObject
+class TelemetryModel : public QAbstractTableModel
 {
     Q_OBJECT
-public:
-    explicit TelemetryModel(QObject *parent = nullptr);
 
-signals:
+public:
+    TelemetryModel(QObject *parent = nullptr);
+
+    // Required overrides for QAbstractTableModel
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+
+    void addTelemetryData(const TelemetryData &data);
+
+private:
+    QList<TelemetryData> telemetryDataList;  // List to hold telemetry data
 };
 
 #endif // TELEMETRYMODEL_H

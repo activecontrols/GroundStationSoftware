@@ -47,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
     serial->setFlowControl(QSerialPort::NoFlowControl);
 
     if (serial->open(QIODevice::ReadOnly)) {
-        connect(serial, &QSerialPort::readyRead, this, &Mainwindow::onDataReceived);
+        connect(serial, &QSerialPort::readyRead, this, &MainWindow::onDataReceived);
     } else {
         // Handle error
     }
@@ -64,14 +64,18 @@ void MainWindow::onDataReceived()
 {
     QByteArray data = serial->readAll();
     QString telemetryStr = QString::fromUtf8(data);
+    QStringList telemetryList = telemetryStr.split(",");
+    if (telemetryList.size() != 11) {
+        return;
+    }
+    float alt = telemetryList[0].toFloat();
+
 
     emit telemetryDataReceived(data);
 }
 
 void MainWindow::initialize()
 {
-    // auto *toolBar = new QToolBar();
-
     auto *flightData = new FlightData();
     auto *flightGraphs = new FlightGraphs();
 
