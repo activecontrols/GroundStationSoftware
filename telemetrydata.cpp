@@ -1,4 +1,4 @@
-#include "data.h"
+#include "telemetrydata.h"
 
 Data::Data(QObject *parent)
     : QObject{parent}

@@ -5,6 +5,8 @@
 #include "commdialog.h"
 #include "QTimer"
 #include "logwindow.h"
+#include "QSerialPort"
+#include "telemetrymodel.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -36,7 +38,8 @@ private:
     LogWindow *logWindow;
     CommDialog *commDialog;
     QTimer *timer;
-
+    QSerialPort *serial;
+    TelemetryModel *telemetryModel;
 
 
 private slots:

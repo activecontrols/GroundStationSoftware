@@ -1,5 +1,5 @@
-#ifndef DATA_H
-#define DATA_H
+#ifndef TELEMETRYDATA_H
+#define TELEMETRYDATA_H
 
 #include <QObject>
 
@@ -39,4 +39,4 @@ private:
 signals:
 };
 
-#endif // DATA_H
+#endif // TELEMETRYDATA_H

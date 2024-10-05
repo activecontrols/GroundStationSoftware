@@ -15,7 +15,6 @@ SOURCES += \
     axesinputhandler.cpp \
     camera.cpp \
     commdialog.cpp \
-    data.cpp \
     graphs/linegraph.cpp \
     graphs/myq3dscatter.cpp \
     logwindow.cpp \
@@ -23,20 +22,23 @@ SOURCES += \
     mainwindow.cpp \
     pages/flightdata.cpp \
     pages/flightgraphs.cpp \
-    scatterdatamodifier.cpp
+    scatterdatamodifier.cpp \
+    telemetrydata.cpp \
+    telemetrymodel.cpp
 
 HEADERS += \
     axesinputhandler.h \
     camera.h \
     commdialog.h \
-    data.h \
     graphs/linegraph.h \
     graphs/myq3dscatter.h \
     logwindow.h \
     mainwindow.h \
     pages/flightdata.h \
     pages/flightgraphs.h \
-    scatterdatamodifier.h
+    scatterdatamodifier.h \
+    telemetrydata.h \
+    telemetrymodel.h
 
 FORMS += \
     flightdata.ui \
@@ -53,3 +55,4 @@ RESOURCES += \
 
 DISTFILES += \
     README.md \
+
