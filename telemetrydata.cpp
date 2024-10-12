@@ -64,92 +64,92 @@ void TelemetryData::parseValues(const QStringList &values)
     yaw = values[i++].toFloat();
 }
 
-uint8_t TelemetryData::getBattery()
+uint8_t TelemetryData::getBattery() const
 {
     return battery;
 }
 
-int16_t TelemetryData::getTemperature()
+int16_t TelemetryData::getTemperature() const
 {
     return temperature;
 }
 
-float TelemetryData::getXPos()
+float TelemetryData::getXPos() const
 {
     return x_pos;
 }
 
-float TelemetryData::getYPos()
+float TelemetryData::getYPos() const
 {
     return y_pos;
 }
 
-float TelemetryData::getZPos()
+float TelemetryData::getZPos() const
 {
     return z_pos;
 }
 
-float TelemetryData::getXVel()
+float TelemetryData::getXVel() const
 {
     return x_vel;
 }
 
-float TelemetryData::getYVel()
+float TelemetryData::getYVel() const
 {
     return y_vel;
 }
 
-float TelemetryData::getZVel()
+float TelemetryData::getZVel() const
 {
     return z_vel;
 }
 
-float TelemetryData::getXAcc()
+float TelemetryData::getXAcc() const
 {
     return x_acc;
 }
 
-float TelemetryData::getYAcc()
+float TelemetryData::getYAcc() const
 {
     return y_acc;
 }
 
-float TelemetryData::getZAcc()
+float TelemetryData::getZAcc() const
 {
     return z_acc;
 }
 
-float TelemetryData::getAirspeed()
+float TelemetryData::getAirspeed() const
 {
     return airspeed;
 }
 
-float TelemetryData::getVelVariance(int index)
+float TelemetryData::getVelVariance(int index) const
 {
     return vel_variance[index];
 }
 
-float TelemetryData::getPosVariance(int index)
+float TelemetryData::getPosVariance(int index) const
 {
     return pos_variance[index];
 }
 
-float TelemetryData::getAltitude(int index)
+float TelemetryData::getAltitude(int index) const
 {
     return altitude[index];
 }
 
-float TelemetryData::getRoll()
+float TelemetryData::getRoll() const
 {
     return roll;
 }
 
-float TelemetryData::getPitch()
+float TelemetryData::getPitch() const
 {
     return pitch;
 }
 
-float TelemetryData::getYaw()
+float TelemetryData::getYaw() const
 {
     return yaw;
 }

@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>978</width>
-    <height>628</height>
+    <width>982</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="layoutDirection">
+   <enum>Qt::LayoutDirection::LeftToRight</enum>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
@@ -21,250 +24,20 @@
 color: rgb(0, 0, 0);
 background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0.0913462 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));</string>
   </property>
-  <widget class="QGroupBox" name="checklistBox">
-   <property name="geometry">
-    <rect>
-     <x>600</x>
-     <y>0</y>
-     <width>371</width>
-     <height>291</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(218, 170, 0);</string>
-   </property>
-   <layout class="QGridLayout" name="gridLayout_7">
-    <item row="3" column="1">
-     <widget class="QLabel" name="mark_1">
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="1">
-     <widget class="QLabel" name="mark_4">
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="check_servos">
-      <property name="text">
-       <string>Servos</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="0">
-     <widget class="QLabel" name="check_tests">
-      <property name="text">
-       <string>Tests</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0">
-     <widget class="QLabel" name="check_battery">
-      <property name="text">
-       <string>Battery</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="check_mem">
-      <property name="text">
-       <string>Memory Alloc</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="1">
-     <widget class="QLabel" name="mark_2">
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="1">
-     <widget class="QLabel" name="mark_3">
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="checklist_label">
-      <property name="text">
-       <string>Checklist</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="1">
-     <widget class="QPushButton" name="launchButton">
-      <property name="text">
-       <string>Launch</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QGroupBox" name="telemBox">
-   <property name="geometry">
-    <rect>
-     <x>420</x>
-     <y>0</y>
-     <width>171</width>
-     <height>291</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(218, 170, 0);</string>
-   </property>
-   <layout class="QGridLayout" name="gridLayout_5">
-    <item row="3" column="1">
-     <widget class="QLabel" name="k_data">
-      <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="1">
-     <widget class="QLabel" name="m_data">
-      <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="0" colspan="2">
-     <widget class="QPushButton" name="uploadButton">
-      <property name="text">
-       <string>Upload</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0">
-     <widget class="QLabel" name="n_label">
-      <property name="text">
-       <string>n</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="0">
-     <widget class="QLabel" name="N_label">
-      <property name="text">
-       <string>N</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="1">
-     <widget class="QLabel" name="n_data">
-      <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="k_label">
-      <property name="text">
-       <string>k</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="1">
-     <widget class="QLabel" name="N_data">
-      <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="p_label">
-      <property name="text">
-       <string>p</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="1">
-     <widget class="QLabel" name="p_data">
-      <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="0">
-     <widget class="QLabel" name="m_label">
-      <property name="text">
-       <string>m</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="telem_label">
-      <property name="text">
-       <string>Telemetry</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QLabel" name="logo">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>0</y>
-     <width>401</width>
-     <height>221</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-     <horstretch>0</horstretch>
-     <verstretch>4</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(0, 0, 0);</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
   <widget class="QVideoWidget" name="camera" native="true">
    <property name="geometry">
     <rect>
-     <x>420</x>
-     <y>300</y>
-     <width>551</width>
-     <height>321</height>
+     <x>260</x>
+     <y>470</y>
+     <width>281</width>
+     <height>121</height>
     </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
@@ -273,10 +46,10 @@ background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0.091
   <widget class="QGroupBox" name="infoBox">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>230</y>
-     <width>401</width>
-     <height>391</height>
+     <x>460</x>
+     <y>10</y>
+     <width>511</width>
+     <height>431</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -284,81 +57,33 @@ background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0.091
 </string>
    </property>
    <layout class="QGridLayout" name="gridLayout_6">
-    <item row="8" column="6">
-     <widget class="QLabel" name="pitch_label">
-      <property name="text">
-       <string>Pitch</string>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="4">
-     <widget class="QLabel" name="vel_var_3">
-      <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="6">
-     <widget class="QLabel" name="roll_label">
-      <property name="text">
-       <string>Roll</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="3">
-     <widget class="QLabel" name="y_vel_label">
-      <property name="text">
-       <string>Y-Vel</string>
-      </property>
-     </widget>
-    </item>
     <item row="4" column="1">
      <widget class="QLabel" name="y_pos">
       <property name="text">
-       <string>0.0</string>
+       <string>0.000</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
       </property>
      </widget>
     </item>
-    <item row="10" column="6">
-     <widget class="QLabel" name="yaw_label">
+    <item row="4" column="7">
+     <widget class="QLabel" name="y_acc">
       <property name="text">
-       <string>Yaw</string>
+       <string>0.000</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
       </property>
      </widget>
     </item>
-    <item row="9" column="3">
-     <widget class="QLabel" name="vel_var_2">
+    <item row="8" column="3">
+     <widget class="QLabel" name="pos_var_2">
       <property name="text">
-       <string>0.0</string>
+       <string>0.000</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="4">
-     <widget class="QLabel" name="x_vel">
-      <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="7">
-     <widget class="QLabel" name="roll">
-      <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
       </property>
      </widget>
     </item>
@@ -369,40 +94,54 @@ background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0.091
       </property>
      </widget>
     </item>
-    <item row="5" column="4">
-     <widget class="QLabel" name="z_vel">
+    <item row="9" column="2">
+     <widget class="QLabel" name="vel_var_1">
       <property name="text">
-       <string>0.0</string>
+       <string>0.000</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="1">
+     <widget class="QLabel" name="alt_1">
+      <property name="text">
+       <string>0.000</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLabel" name="x_pos">
+      <property name="text">
+       <string>0.000</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
       </property>
      </widget>
     </item>
-    <item row="3" column="7">
-     <widget class="QLabel" name="x_acc">
+    <item row="4" column="6">
+     <widget class="QLabel" name="y_acc_label">
       <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+       <string>Y-Acc</string>
       </property>
      </widget>
     </item>
-    <item row="5" column="1">
-     <widget class="QLabel" name="z_pos">
+    <item row="3" column="3">
+     <widget class="QLabel" name="x_vel_label">
       <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+       <string>X-Vel</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="y_pos_label">
+    <item row="5" column="3">
+     <widget class="QLabel" name="z_vel_label">
       <property name="text">
-       <string>Y-Pos</string>
+       <string>Z-Vel</string>
       </property>
      </widget>
     </item>
@@ -419,146 +158,80 @@ background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0.091
       </property>
      </spacer>
     </item>
-    <item row="4" column="4">
-     <widget class="QLabel" name="y_vel">
+    <item row="9" column="3">
+     <widget class="QLabel" name="vel_var_2">
       <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="2">
-     <widget class="QLabel" name="vel_var_1">
-      <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="0" colspan="2">
-     <widget class="QLabel" name="pos_var_label">
-      <property name="text">
-       <string>Pos-var</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="7">
-     <widget class="QLabel" name="y_acc">
-      <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="7">
-     <widget class="QLabel" name="z_acc">
-      <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <widget class="QLabel" name="x_pos">
-      <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="4">
-     <widget class="QLabel" name="pos_var_3">
-      <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="0" colspan="7">
-     <widget class="Line" name="line">
-      <property name="orientation">
-       <enum>Qt::Orientation::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="7">
-     <widget class="QLabel" name="yaw">
-      <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="0" colspan="2">
-     <widget class="QLabel" name="vel_var_label">
-      <property name="text">
-       <string>Vel-var</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="6">
-     <widget class="QLabel" name="y_acc_label">
-      <property name="text">
-       <string>Y-Acc</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="6">
-     <widget class="QLabel" name="x_acc_label">
-      <property name="text">
-       <string>X-Acc</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="x_pos_label">
-      <property name="text">
-       <string>X-pos</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="3">
-     <widget class="QLabel" name="z_vel_label">
-      <property name="text">
-       <string>Z-Vel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="6">
-     <widget class="QLabel" name="z_acc_label">
-      <property name="text">
-       <string>Z-Acc</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0">
-     <widget class="QLabel" name="z_pos_label">
-      <property name="text">
-       <string>Z-Pos</string>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="3">
-     <widget class="QLabel" name="pos_var_2">
-      <property name="text">
-       <string>0.0</string>
+       <string>0.000</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="7">
+     <widget class="QLabel" name="roll">
+      <property name="text">
+       <string>0.000</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="3">
+     <widget class="QLabel" name="temp_label">
+      <property name="text">
+       <string>Temp</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="7">
+     <widget class="QLabel" name="x_acc">
+      <property name="text">
+       <string>0.000</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="7">
+     <widget class="QLabel" name="airspeed">
+      <property name="text">
+       <string>0.000</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="4">
+     <widget class="QLabel" name="temp">
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="4">
+     <widget class="QLabel" name="alt_4">
+      <property name="text">
+       <string>0.000</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="4">
+     <widget class="QLabel" name="z_vel">
+      <property name="text">
+       <string>0.000</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
       </property>
      </widget>
     </item>
@@ -575,37 +248,170 @@ background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0.091
       </property>
      </spacer>
     </item>
+    <item row="7" column="0" colspan="8">
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="6">
+     <widget class="QLabel" name="yaw_label">
+      <property name="text">
+       <string>Yaw</string>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="1">
+     <widget class="QLabel" name="batt">
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="4">
+     <widget class="QLabel" name="pos_var_3">
+      <property name="text">
+       <string>0.000</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="0">
+     <widget class="QLabel" name="alt_label">
+      <property name="text">
+       <string>Alt</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="6">
+     <widget class="QLabel" name="pitch_label">
+      <property name="text">
+       <string>Pitch</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="3">
+     <widget class="QLabel" name="y_vel_label">
+      <property name="text">
+       <string>Y-Vel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="5" colspan="2">
+     <widget class="QLabel" name="airspeed_label">
+      <property name="text">
+       <string>Airspeed</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="x_pos_label">
+      <property name="text">
+       <string>X-pos</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QLabel" name="z_pos">
+      <property name="text">
+       <string>0.000</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="4">
+     <widget class="QLabel" name="vel_var_3">
+      <property name="text">
+       <string>0.000</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="z_pos_label">
+      <property name="text">
+       <string>Z-Pos</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="y_pos_label">
+      <property name="text">
+       <string>Y-Pos</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="6">
+     <widget class="QLabel" name="z_acc_label">
+      <property name="text">
+       <string>Z-Acc</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="4">
+     <widget class="QLabel" name="y_vel">
+      <property name="text">
+       <string>0.000</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="7">
+     <widget class="QLabel" name="yaw">
+      <property name="text">
+       <string>0.000</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="6">
+     <widget class="QLabel" name="x_acc_label">
+      <property name="text">
+       <string>X-Acc</string>
+      </property>
+     </widget>
+    </item>
     <item row="8" column="7">
      <widget class="QLabel" name="pitch">
       <property name="text">
-       <string>0.0</string>
+       <string>0.000</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
       </property>
      </widget>
     </item>
-    <item row="8" column="2">
-     <widget class="QLabel" name="pos_var_1">
+    <item row="3" column="4">
+     <widget class="QLabel" name="x_vel">
       <property name="text">
-       <string>0.0</string>
+       <string>0.000</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
       </property>
      </widget>
     </item>
-    <item row="3" column="3">
-     <widget class="QLabel" name="x_vel_label">
+    <item row="11" column="3">
+     <widget class="QLabel" name="alt_3">
       <property name="text">
-       <string>X-Vel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="4">
-     <widget class="QLabel" name="temp">
-      <property name="text">
-       <string>0.0</string>
+       <string>0.000</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -622,88 +428,285 @@ background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0.091
       </property>
      </widget>
     </item>
-    <item row="10" column="1">
-     <widget class="QLabel" name="batt">
+    <item row="8" column="0" colspan="2">
+     <widget class="QLabel" name="pos_var_label">
       <property name="text">
-       <string>0.0</string>
+       <string>Pos-var</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="2">
+     <widget class="QLabel" name="pos_var_1">
+      <property name="text">
+       <string>0.000</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="3">
-     <widget class="QLabel" name="temp_label">
-      <property name="text">
-       <string>Temp</string>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="0">
-     <widget class="QLabel" name="alt_label">
-      <property name="text">
-       <string>Alt</string>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="1">
-     <widget class="QLabel" name="alt_1">
-      <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
       </property>
      </widget>
     </item>
     <item row="11" column="2">
      <widget class="QLabel" name="alt_2">
       <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="3">
-     <widget class="QLabel" name="alt_3">
-      <property name="text">
-       <string>0.0</string>
+       <string>0.000</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
     </item>
-    <item row="11" column="4">
-     <widget class="QLabel" name="alt_4">
+    <item row="9" column="0" colspan="2">
+     <widget class="QLabel" name="vel_var_label">
       <property name="text">
-       <string>0.0</string>
+       <string>Vel-var</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="7">
+     <widget class="QLabel" name="z_acc">
+      <property name="text">
+       <string>0.000</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
       </property>
      </widget>
     </item>
-    <item row="11" column="5" colspan="2">
-     <widget class="QLabel" name="airspeed_label">
+    <item row="9" column="6">
+     <widget class="QLabel" name="roll_label">
       <property name="text">
-       <string>Airspeed</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+       <string>Roll</string>
       </property>
      </widget>
     </item>
-    <item row="11" column="7">
-     <widget class="QLabel" name="airspeed">
+   </layout>
+  </widget>
+  <widget class="QWidget" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>20</y>
+     <width>271</width>
+     <height>581</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="logo">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>4</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(0, 0, 0);</string>
+      </property>
       <property name="text">
-       <string>0.0</string>
+       <string/>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="telemBox">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(218, 170, 0);</string>
       </property>
+      <layout class="QGridLayout" name="gridLayout_5">
+       <item row="6" column="0">
+        <widget class="QLabel" name="m_label">
+         <property name="text">
+          <string>m</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="N_label">
+         <property name="text">
+          <string>N</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="k_label">
+         <property name="text">
+          <string>k</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="p_label">
+         <property name="text">
+          <string>p</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="n_label">
+         <property name="text">
+          <string>n</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="telem_label">
+         <property name="text">
+          <string>Telemetry</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLabel" name="n_data">
+         <property name="text">
+          <string>0.0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLabel" name="m_data">
+         <property name="text">
+          <string>0.0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0" colspan="2">
+        <widget class="QPushButton" name="uploadButton">
+         <property name="text">
+          <string>Upload</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLabel" name="k_data">
+         <property name="text">
+          <string>0.0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QLabel" name="N_data">
+         <property name="text">
+          <string>0.0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLabel" name="p_data">
+         <property name="text">
+          <string>0.0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="checklistBox">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(218, 170, 0);</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_7">
+       <item row="3" column="1">
+        <widget class="QLabel" name="mark_1">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLabel" name="mark_4">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="check_servos">
+         <property name="text">
+          <string>Servos</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="check_tests">
+         <property name="text">
+          <string>Tests</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="check_battery">
+         <property name="text">
+          <string>Battery</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="check_mem">
+         <property name="text">
+          <string>Memory Alloc</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLabel" name="mark_2">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLabel" name="mark_3">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="checklist_label">
+         <property name="text">
+          <string>Checklist</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QPushButton" name="launchButton">
+         <property name="text">
+          <string>Launch</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>

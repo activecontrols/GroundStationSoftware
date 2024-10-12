@@ -59,4 +59,6 @@ void TelemetryModel::addTelemetryData(const TelemetryData &data)
     beginInsertRows(QModelIndex(), telemetryDataList.size(), telemetryDataList.size());
     telemetryDataList.append(data);  // Add data to the list
     endInsertRows();
+
+    emit telemetryDataAdded(data);
 }

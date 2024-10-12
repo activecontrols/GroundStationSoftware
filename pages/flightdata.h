@@ -18,6 +18,7 @@ public:
     ~FlightData();
 
     void updateChecks(qreal);
+    void updateTelemetryDisplay(const TelemetryData &data);
 
 signals:
     void transmitCamera();
@@ -29,7 +30,6 @@ private slots:
     // void receiveCamera();
 
     void on_uploadButton_clicked();
-    void updateTelemetryDisplay(TelemetryData &data);
 
 private:
     Ui::FlightData *ui;

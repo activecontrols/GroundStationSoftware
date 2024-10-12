@@ -8,24 +8,24 @@ class TelemetryData
 public:
     TelemetryData();
 
-    uint8_t getBattery();
-    int16_t getTemperature();
-    float getXPos();
-    float getYPos();
-    float getZPos();
-    float getXVel();
-    float getYVel();
-    float getZVel();
-    float getXAcc();
-    float getYAcc();
-    float getZAcc();
-    float getAirspeed();
-    float getVelVariance(int index);
-    float getPosVariance(int index);
-    float getAltitude(int index);
-    float getRoll();
-    float getPitch();
-    float getYaw();
+    uint8_t getBattery() const;
+    int16_t getTemperature() const;
+    float getXPos() const;
+    float getYPos() const;
+    float getZPos() const;
+    float getXVel() const;
+    float getYVel() const;
+    float getZVel() const;
+    float getXAcc() const;
+    float getYAcc() const;
+    float getZAcc() const;
+    float getAirspeed() const;
+    float getVelVariance(int index) const;
+    float getPosVariance(int index) const;
+    float getAltitude(int index) const;
+    float getRoll() const;
+    float getPitch() const;
+    float getYaw() const;
 
     void setBattery(uint8_t battery);
     void setTemperature(int16_t temperature);

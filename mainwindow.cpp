@@ -11,6 +11,8 @@
 
 #include <QRandomGenerator>
 
+QTimer *simulateTimer;
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -27,7 +29,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(timer, &QTimer::timeout, this, &MainWindow::updateClock);
     timer->start(1000);
 
-    connect(telemetryModel, &TelemetryModel::addTelemetryData, flightData, &FlightData::updateTelemetryDisplay);
+    telemetryModel = new TelemetryModel(this);
+
+    connect(telemetryModel, &TelemetryModel::telemetryDataAdded, flightData, &FlightData::updateTelemetryDisplay);
 
     simulateTelemetryData();
 
@@ -39,6 +43,9 @@ MainWindow::~MainWindow()
     if (serial->isOpen()) {
         serial->close();
     }
+    delete stackedWidget;
+    delete timer;
+    delete simulateTimer;
     delete telemetryModel;
     delete serial;
 }
@@ -165,9 +172,9 @@ void MainWindow::initTelemetryFile()
 
 void MainWindow::simulateTelemetryData()
 {
-    QTimer *simulateTimer = new QTimer(this);
+    simulateTimer = new QTimer(this);
     connect(simulateTimer, &QTimer::timeout, this, &MainWindow::generateSimulatedData);
-    timer->start(5000);
+    simulateTimer->start(500);
 }
 
 void MainWindow::generateSimulatedData()

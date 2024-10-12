@@ -17,9 +17,7 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
 
-    void addTelemetryData(const TelemetryData &data) {
-        emit telemetryDataAdded(data);
-    }
+    void addTelemetryData(const TelemetryData &data);
 signals:
     void telemetryDataAdded(const TelemetryData &data);
 
