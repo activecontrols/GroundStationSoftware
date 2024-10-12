@@ -2,17 +2,15 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTimer>
+#include <QSerialPort>
+#include <QStackedWidget>
+#include <QToolBar>
+#include <flightdata.h>
+#include <flightgraphs.h>
 #include "commdialog.h"
-#include "QTimer"
 #include "logwindow.h"
-#include "QSerialPort"
 #include "telemetrymodel.h"
-
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
-}
-QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
@@ -34,7 +32,13 @@ public slots:
     // void showUnsuccessfulMemAlloc();
 
 private:
-    Ui::MainWindow *ui;
+    QStackedWidget *stackedWidget;
+    QMenuBar *menuBar;
+    QToolBar *toolBar;
+    FlightData *flightData;
+    FlightGraphs *flightGraphs;
+    QLabel *clock;
+
     LogWindow *logWindow;
     CommDialog *commDialog;
     QTimer *timer;
@@ -48,8 +52,6 @@ private slots:
     // void on_launch_button_released();
     // void on_connect_action_triggered();
     // void on_log_action_triggered();
-    void on_actionFlight_Graphs_triggered();
-    void on_actionFlight_Data_triggered();
     void on_actionConnect_triggered();
     void on_actionFlight_Logs_triggered();
     void on_action3D_Graph_triggered();
