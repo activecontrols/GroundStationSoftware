@@ -20,16 +20,14 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-signals:
-    void telemetryDataReceived(const QByteArray &data);
-    void change();
-
-public slots:
-    void initialize();
     void updateClock();
     void showCOMConnection();
     // void showSuccessfulMemAlloc();
     // void showUnsuccessfulMemAlloc();
+
+signals:
+    void telemetryDataReceived(const QByteArray &data);
+    void change();
 
 private:
     QStackedWidget *stackedWidget;
@@ -43,8 +41,16 @@ private:
     CommDialog *commDialog;
     QTimer *timer;
     QSerialPort *serial;
+    QFile *telemetryFile;
+    QTextStream *stream;
     TelemetryModel *telemetryModel;
 
+    void initWindow();
+    void initSerialPort();
+    void initTelemetryFile();
+
+    void simulateTelemetryData();
+    void generateSimulatedData();
 
 private slots:
     void onDataReceived();
@@ -52,7 +58,6 @@ private slots:
     // void on_launch_button_released();
     // void on_connect_action_triggered();
     // void on_log_action_triggered();
-    void on_actionConnect_triggered();
     void on_actionFlight_Logs_triggered();
     void on_action3D_Graph_triggered();
 };

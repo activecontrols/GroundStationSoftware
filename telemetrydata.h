@@ -8,16 +8,43 @@ class TelemetryData
 public:
     TelemetryData();
 
-    // void setBattery(uint8_t battery);
-    // void setXPos(float x_pos);
-    // void setYPos(float y_pos);
-    // void setZPos(float z_pos);
-    // void setXVel(float x_vel);
-    // void setYVel(float y_vel);
-    // void setZVel(float z_vel);
-    // void setXAcc(float x_acc);
-    // void setYAcc(float y_acc);
-    // void setZAcc(float z_acc);
+    uint8_t getBattery();
+    int16_t getTemperature();
+    float getXPos();
+    float getYPos();
+    float getZPos();
+    float getXVel();
+    float getYVel();
+    float getZVel();
+    float getXAcc();
+    float getYAcc();
+    float getZAcc();
+    float getAirspeed();
+    float getVelVariance(int index);
+    float getPosVariance(int index);
+    float getAltitude(int index);
+    float getRoll();
+    float getPitch();
+    float getYaw();
+
+    void setBattery(uint8_t battery);
+    void setTemperature(int16_t temperature);
+    void setXPos(float x_pos);
+    void setYPos(float y_pos);
+    void setZPos(float z_pos);
+    void setXVel(float x_vel);
+    void setYVel(float y_vel);
+    void setZVel(float z_vel);
+    void setXAcc(float x_acc);
+    void setYAcc(float y_acc);
+    void setZAcc(float z_acc);
+    void setAirspeed(float airspeed);
+    void setVelVariance(float variance[3]);
+    void setPosVariance(float variance[3]);
+    void setAltitude(float altitude[4]);
+    void setRoll(float roll);
+    void setPitch(float pitch);
+    void setYaw(float yaw);
 
     void parseValues(const QStringList &values);
 private:
@@ -41,9 +68,9 @@ private:
 
     float altitude[4]; // Altitude represented as Quaternion
 
-    float roll_rate; // Angular rate in roll axis
-    float pitch_rate; // Angular rate in pitch axis
-    float yaw_rate; // Angular rate in yaw axis
+    float roll; // Angular rate in roll axis
+    float pitch; // Angular rate in pitch axis
+    float yaw; // Angular rate in yaw axis
 
 
 signals:

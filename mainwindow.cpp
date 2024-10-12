@@ -9,10 +9,15 @@
 #include <QDebug>
 #include <QSerialPort>
 
+#include <QRandomGenerator>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    initialize();
+    initWindow();
+    // initSerialPort();
+    // initTelemetryFile();
+
     stackedWidget->setCurrentIndex(0);
 
     logWindow = new LogWindow(this);
@@ -22,43 +27,36 @@ MainWindow::MainWindow(QWidget *parent)
     connect(timer, &QTimer::timeout, this, &MainWindow::updateClock);
     timer->start(1000);
 
+    connect(telemetryModel, &TelemetryModel::addTelemetryData, flightData, &FlightData::updateTelemetryDisplay);
 
-    QSerialPort *serial = new QSerialPort(this);
-    serial->setPortName("COM1");  // Replace with the correct COM port
-    serial->setBaudRate(QSerialPort::Baud9600);
-    serial->setDataBits(QSerialPort::Data8);
-    serial->setParity(QSerialPort::NoParity);
-    serial->setStopBits(QSerialPort::OneStop);
-    serial->setFlowControl(QSerialPort::NoFlowControl);
-
-    if (serial->open(QIODevice::ReadOnly)) {
-        connect(serial, &QSerialPort::readyRead, this, &MainWindow::onDataReceived);
-    } else {
-        // Handle error
-    }
+    simulateTelemetryData();
 
     // QObject::connect(this, &MainWindow::change, ui->flightGraphs->scatter, &MyQ3DScatter::receiveChange);
 }
 
 MainWindow::~MainWindow()
 {
+    if (serial->isOpen()) {
+        serial->close();
+    }
+    delete telemetryModel;
+    delete serial;
 }
 
+// For when data is received from the serial port
 void MainWindow::onDataReceived()
 {
     QByteArray data = serial->readAll();
     QString telemetryStr = QString::fromUtf8(data);
     QStringList telemetryList = telemetryStr.split(",");
-    if (telemetryList.size() != 11) {
+    if (telemetryList.size() != 14) {
         return;
     }
-    float alt = telemetryList[0].toFloat();
-
 
     emit telemetryDataReceived(data);
 }
 
-void MainWindow::initialize()
+void MainWindow::initWindow()
 {
     menuBar = new QMenuBar();
     QMenu *fileMenu = menuBar->addMenu("File");
@@ -135,6 +133,71 @@ void MainWindow::initialize()
     setCentralWidget(stackedWidget);
 }
 
+void MainWindow::initSerialPort()
+{
+    // Set the serial port name and parameters (modify COM port as needed)
+    serial->setPortName("COM1");
+    serial->setBaudRate(QSerialPort::Baud9600);
+    serial->setDataBits(QSerialPort::Data8);
+    serial->setParity(QSerialPort::NoParity);
+    serial->setStopBits(QSerialPort::OneStop);
+    serial->setFlowControl(QSerialPort::NoFlowControl);
+
+    // Open the serial port
+    if (serial->open(QIODevice::ReadOnly)) {
+        connect(serial, &QSerialPort::readyRead, this, &MainWindow::onDataReceived);
+        qDebug() << "Serial port opened successfully!";
+    } else {
+        qDebug() << "Failed to open serial port: " << serial->errorString();
+    }
+}
+
+void MainWindow::initTelemetryFile()
+{
+    // Open the file in append mode
+    if (telemetryFile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+        stream = new QTextStream(telemetryFile);
+        qDebug() << "Telemetry data file opened successfully!";
+    } else {
+        qDebug() << "Failed to open telemetry data file: " << telemetryFile->errorString();
+    }
+}
+
+void MainWindow::simulateTelemetryData()
+{
+    QTimer *simulateTimer = new QTimer(this);
+    connect(simulateTimer, &QTimer::timeout, this, &MainWindow::generateSimulatedData);
+    timer->start(5000);
+}
+
+void MainWindow::generateSimulatedData()
+{
+    // Simulate telemetry data
+    QRandomGenerator *generator = QRandomGenerator::global();
+    TelemetryData testTelemetryData;
+    testTelemetryData.setBattery(generator->bounded(0, 100));
+    testTelemetryData.setTemperature(generator->bounded(-20, 50));
+    testTelemetryData.setXPos(generator->generateDouble() * 100);
+    testTelemetryData.setYPos(generator->generateDouble() * 100);
+    testTelemetryData.setZPos(generator->generateDouble() * 100);
+    testTelemetryData.setXVel(generator->generateDouble() * 100);
+    testTelemetryData.setYVel(generator->generateDouble() * 100);
+    testTelemetryData.setZVel(generator->generateDouble() * 100);
+    testTelemetryData.setXAcc(generator->generateDouble() * 100);
+    testTelemetryData.setYAcc(generator->generateDouble() * 100);
+    testTelemetryData.setZAcc(generator->generateDouble() * 100);
+    testTelemetryData.setAirspeed(generator->generateDouble() * 100);
+    float variance[3] = {static_cast<float>(generator->generateDouble() * 100), static_cast<float>(generator->generateDouble() * 100), static_cast<float>(generator->generateDouble() * 100)};
+    testTelemetryData.setVelVariance(variance);
+    testTelemetryData.setPosVariance(variance);
+    float altitude[4] = {static_cast<float>(generator->generateDouble() * 100), static_cast<float>(generator->generateDouble() * 100), static_cast<float>(generator->generateDouble() * 100), static_cast<float>(generator->generateDouble() * 100)};
+    testTelemetryData.setAltitude(altitude);
+    testTelemetryData.setRoll(generator->generateDouble() * 100);
+    testTelemetryData.setPitch(generator->generateDouble() * 100);
+    testTelemetryData.setYaw(generator->generateDouble() * 100);
+    telemetryModel->addTelemetryData(testTelemetryData);
+}
+
 void MainWindow::updateClock()
 {
     clock->setText(QTime::currentTime().toString("h:mm:ss ap"));
@@ -169,11 +232,6 @@ void MainWindow::updateClock()
 //         // showUnsuccessfulMemAlloc();
 //     }
 // }
-
-void MainWindow::on_actionConnect_triggered()
-{
-    commDialog->show();
-}
 
 void MainWindow::showCOMConnection()
 {

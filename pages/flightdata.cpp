@@ -48,21 +48,6 @@ void FlightData::on_launchButton_clicked()
     qDebug() << "To Infinity and Beyond";
 }
 
-void FlightData::updateData(qreal alt, qreal amb_press, qreal batt, qreal climb,
-                            qreal current, qreal imu, qreal pitch, qreal roll,
-                            qreal yaw, qreal lat, qreal longit) {
-    ui->alt_data->setText(QString::number(alt));
-    ui->amb_press_data->setText(QString::number(amb_press));
-    ui->batt_data->setText(QString::number(batt));
-    ui->climb_data->setText(QString::number(climb));
-    ui->current_data->setText(QString::number(current));
-    ui->imu_temp_data->setText(QString::number(imu));
-    ui->pitch_data->setText(QString::number(pitch));
-    ui->roll_data->setText(QString::number(roll));
-    ui->yaw_data->setText(QString::number(yaw));
-    ui->lat_data->setText(QString::number(longit));
-}
-
 void FlightData::updateChecks(qreal battery) {
     if (battery < 0) {
         qDebug() << "Battery dead";
@@ -103,8 +88,29 @@ void FlightData::on_uploadButton_clicked()
     // uploadTelem(k_val, p_val, n_val, m_val, N_val);
 }
 
-void FlightData::updateTelemetryDisplay(const QByteArray &data)
+void FlightData::updateTelemetryDisplay(TelemetryData &data)
 {
     qDebug() << "Updating telemetry display";
-    // ui->telemetryDisplay->append(data);
+    ui->batt->setText(QString::number(data.getBattery()));
+    ui->temp->setText(QString::number(data.getTemperature()));
+    ui->x_pos->setText(QString::number(data.getXPos()));
+    ui->y_pos->setText(QString::number(data.getYPos()));
+    ui->z_pos->setText(QString::number(data.getZPos()));
+    ui->x_vel->setText(QString::number(data.getXVel()));
+    ui->y_vel->setText(QString::number(data.getYVel()));
+    ui->z_vel->setText(QString::number(data.getZVel()));
+    ui->x_acc->setText(QString::number(data.getXAcc()));
+    ui->y_acc->setText(QString::number(data.getYAcc()));
+    ui->z_acc->setText(QString::number(data.getZAcc()));
+    ui->pos_var_1->setText(QString::number(data.getPosVariance(0)));
+    ui->pos_var_2->setText(QString::number(data.getPosVariance(1)));
+    ui->pos_var_3->setText(QString::number(data.getPosVariance(2)));
+    ui->vel_var_1->setText(QString::number(data.getVelVariance(0)));
+    ui->vel_var_2->setText(QString::number(data.getVelVariance(1)));
+    ui->vel_var_3->setText(QString::number(data.getVelVariance(2)));
+    ui->alt_1->setText(QString::number(data.getAltitude(0)));
+    ui->airspeed->setText(QString::number(data.getAirspeed()));
+    ui->roll->setText(QString::number(data.getRoll()));
+    ui->pitch->setText(QString::number(data.getPitch()));
+    ui->yaw->setText(QString::number(data.getYaw()));
 }

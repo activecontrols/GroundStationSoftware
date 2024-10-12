@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "camera.h"
+#include <telemetrydata.h>
 
 namespace Ui {
 class FlightData;
@@ -17,9 +18,6 @@ public:
     ~FlightData();
 
     void updateChecks(qreal);
-    void updateData(qreal alt, qreal amb_press, qreal batt, qreal climb,
-                    qreal current, qreal imu, qreal pitch, qreal roll,
-                    qreal yaw, qreal lat, qreal longit);
 
 signals:
     void transmitCamera();
@@ -31,7 +29,7 @@ private slots:
     // void receiveCamera();
 
     void on_uploadButton_clicked();
-    void updateTelemetryDisplay(const QByteArray &data);
+    void updateTelemetryDisplay(TelemetryData &data);
 
 private:
     Ui::FlightData *ui;
