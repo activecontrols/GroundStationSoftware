@@ -27,10 +27,6 @@ FlightGraphs::FlightGraphs(QWidget *parent)
     if (!initialize2DGraphs()) {
         QMessageBox::warning(nullptr, "2D Graphs", "Couldn't properly initalize.");
     }
-
-    temp_timer = new QTimer();
-    connect(temp_timer, &QTimer::timeout, this, &FlightGraphs::updateGraphs);
-    temp_timer->start(1000);
 }
 
 FlightGraphs::~FlightGraphs()
@@ -39,20 +35,14 @@ FlightGraphs::~FlightGraphs()
 }
 
 bool FlightGraphs::initialize2DGraphs() {
-    altGraph = new LineGraph();
-    throttleGraph = new LineGraph();
     pitchGraph = new LineGraph();
     rollGraph = new LineGraph();
     yawGraph = new LineGraph();
 
-    altChart = new QChartView();
-    throttleChart = new QChartView();
     pitchChart = new QChartView();
     rollChart = new QChartView();
     yawChart = new QChartView();
 
-    altGraph->initialize("Altitude", "meters ACL");
-    throttleGraph->initialize("Throttle", "Percent");
     pitchGraph->initialize("Pitch", "meters");
     rollGraph->initialize("Roll", "meters");
     yawGraph->initialize("Yaw", "meters");
@@ -79,9 +69,6 @@ bool FlightGraphs::initialize2DGraphs() {
     container->setLayout(vLayout);
     */
     // ui->graphs->setWidget(container);
-
-    ui->altChart->setChart(altGraph->getChart());
-    ui->throttleChart->setChart(throttleGraph->getChart());
     ui->pitchChart->setChart(pitchGraph->getChart());
     ui->rollChart->setChart(rollGraph->getChart());
     ui->yawChart->setChart(yawGraph->getChart());
@@ -90,14 +77,9 @@ bool FlightGraphs::initialize2DGraphs() {
 }
 
 void FlightGraphs::updateGraphs() {
-    static int x = 0;
-    if (x % 2) {
-        altGraph->addData(x, 2);
-    }
-    else {
-        altGraph->addData(x, -2);
-    }
-    x++;
+    // pitchGraph->addData();
+    // rollGraph->addData();
+    // yawGraph->addData();
 }
 
 void FlightGraphs::addData()

@@ -10,6 +10,7 @@ public:
 
     uint8_t getBattery() const;
     int16_t getTemperature() const;
+    uint64_t getTimestamp() const;
     float getXPos() const;
     float getYPos() const;
     float getZPos() const;
@@ -22,13 +23,14 @@ public:
     float getAirspeed() const;
     float getVelVariance(int index) const;
     float getPosVariance(int index) const;
-    float getAltitude(int index) const;
+    float getAttitude(int index) const;
     float getRoll() const;
     float getPitch() const;
     float getYaw() const;
 
     void setBattery(uint8_t battery);
     void setTemperature(int16_t temperature);
+    void setTimestamp(uint64_t timestamp);
     void setXPos(float x_pos);
     void setYPos(float y_pos);
     void setZPos(float z_pos);
@@ -41,7 +43,7 @@ public:
     void setAirspeed(float airspeed);
     void setVelVariance(float variance[3]);
     void setPosVariance(float variance[3]);
-    void setAltitude(float altitude[4]);
+    void setAttitude(float altitude[4]);
     void setRoll(float roll);
     void setPitch(float pitch);
     void setYaw(float yaw);
@@ -50,6 +52,7 @@ public:
 private:
     uint8_t battery;
     int16_t temperature; // Temperature in Celsius
+    uint64_t timestamp; // Timestamp in milliseconds
 
     // Control System State
     float x_pos; // X position in body frame in m
@@ -66,7 +69,7 @@ private:
     float vel_variance[3]; // Variance of body velocity estimate
     float pos_variance[3]; // Variance in local position
 
-    float altitude[4]; // Altitude represented as Quaternion
+    float attitude[4]; // Altitude represented as Quaternion
 
     float roll; // Angular rate in roll axis
     float pitch; // Angular rate in pitch axis

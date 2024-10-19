@@ -60,7 +60,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QChartView" name="altChart">
+           <widget class="QChartView" name="posVarChart">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -70,7 +70,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QChartView" name="throttleChart">
+           <widget class="QChartView" name="velVarChart">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
               <horstretch>0</horstretch>

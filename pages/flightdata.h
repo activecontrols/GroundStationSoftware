@@ -2,12 +2,15 @@
 #define FLIGHTDATA_H
 
 #include <QWidget>
-#include "camera.h"
+#include <QCamera>
+#include <QCameraDevice>
+#include <QGraphicsView>
+#include <QMediaDevices>
+#include <QMediaCaptureSession>
+#include <QVideoWidget>
+// #include "camera.h"
 #include <telemetrydata.h>
-
-namespace Ui {
-class FlightData;
-}
+#include <controlsystemstatewidget.h>
 
 class FlightData : public QWidget
 {
@@ -15,7 +18,6 @@ class FlightData : public QWidget
 
 public:
     explicit FlightData(QWidget *parent = nullptr);
-    ~FlightData();
 
     void updateChecks(qreal);
     void updateTelemetryDisplay(const TelemetryData &data);
@@ -32,8 +34,15 @@ private slots:
     void on_uploadButton_clicked();
 
 private:
-    Ui::FlightData *ui;
-    Camera camera;
+    ControlSystemStateWidget *controlSystemStateWidget;
+    QGraphicsView *graphicsView;
+    QGraphicsScene *scene;
+    // QCamera *camera;
+    // QCameraDevice *cameraDevice;
+    // QMediaDevices *mediaDevices;
+    // QMediaCaptureSession *captureSession;
+    QVideoWidget *videoWidget;
+    // Camera camera;
     bool initialize();
 };
 

@@ -1,45 +1,72 @@
 #include "flightdata.h"
-#include "ui_flightdata.h"
+#include <QGraphicsProxyWidget>
 
 #include <QDebug>
 #include <QFileDialog>
 #include <QDir>
 #include <QMessageBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 FlightData::FlightData(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::FlightData)
 {
-    ui->setupUi(this);
-    // setStyleSheet("font: 12pt '8514oem'\nbackground-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0.0913462"
-    //               "rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));");
-    initialize();
-}
+    // QPixmap logo_image{":/assets/PSP-AC-1Color-white.png"};
+    // int w = logo->width();
+    // int h = logo->height();
+    // ui->logo->setPixmap(logo_image.scaled(w, h, Qt::KeepAspectRatio));
+    // initialize();
 
-FlightData::~FlightData()
-{
-    delete ui;
-}
+    graphicsView = new QGraphicsView();
+    graphicsView->setMinimumSize(1000, 775);
+    scene = new QGraphicsScene();
+    graphicsView->setScene(scene);
 
+    // Create the QVideoWidget for displaying the live camera feed
+    videoWidget = new QVideoWidget();
+    // Set Video Widget to be the size of the parent
+    videoWidget->setMinimumSize(graphicsView->width(), graphicsView->height());
 
-bool FlightData::initialize()
-{
-    QPixmap logo_image{":/assets/PSP-AC-1Color-white.png"};
-    int w = ui->logo->width();
-    int h = ui->logo->height();
-    ui->logo->setPixmap(logo_image.scaled(w, h, Qt::KeepAspectRatio));
+    // Create the camera and the medi   a capture session
+    // camera = new QCamera(this);
+    // captureSession = new QMediaCaptureSession(this);
 
-    QPixmap checkmark{":/assets/checkmark.png"};
-    int w2 = ui->mark_1->width();
-    int h2 = ui->mark_1->height();
-    checkmark = checkmark.scaled(w2, h2, Qt::KeepAspectRatio);
+    // Set up the capture session to use the camera and the video sink
+    // captureSession->setCamera(camera);
+    // captureSession->setVideoOutput(videoWidget);
 
-    ui->mark_1->setPixmap(checkmark);
-    ui->mark_2->setPixmap(checkmark);
-    ui->mark_3->setPixmap(checkmark);
-    ui->mark_4->setPixmap(checkmark);
+    // Start the camera (important for live feed)
+    // camera->start();
 
-    return true;
+    // Add the QVideoWidget to the scene
+    QGraphicsProxyWidget *videoProxy = scene->addWidget(videoWidget);
+    videoProxy->setPos(0, 0);
+
+    controlSystemStateWidget = new ControlSystemStateWidget();
+    controlSystemStateWidget->setAttribute(Qt::WA_StyledBackground, true);
+    QGraphicsProxyWidget *controlSystemStateProxy = scene->addWidget(controlSystemStateWidget);
+    controlSystemStateProxy->setPos(graphicsView->width() - controlSystemStateWidget->width() - 10, 0);
+
+    QPushButton *toggleButton = new QPushButton("Hide");
+    toggleButton->setStyleSheet("font: 12pt 'Bahnschrift'; color: rgb(218, 170, 0); background-color: black");
+    QGraphicsProxyWidget *toggleButtonProxy = scene->addWidget(toggleButton);
+    toggleButtonProxy->setPos(graphicsView->width() - toggleButton->width() - 10, 0);
+
+    connect(toggleButton, &QPushButton::clicked, [this, toggleButton]() {
+        if (controlSystemStateWidget->isVisible()) {
+            controlSystemStateWidget->hide();
+            toggleButton->setText("Show");
+        } else {
+            controlSystemStateWidget->show();
+            toggleButton->setText("Hide");
+        }
+    });
+
+    // Set up the layout
+    QVBoxLayout *layout = new QVBoxLayout();
+    layout->addWidget(graphicsView);
+    setLayout(layout);
+    setStyleSheet("background-color: black;");
 }
 
 void FlightData::on_launchButton_clicked()
@@ -59,11 +86,11 @@ void FlightData::updateChecks(qreal battery) {
 }
 
 void FlightData::uploadTelem(qreal k_val, qreal p_val, qreal n_val, qreal m_val, qreal N_val) {
-    ui->k_data->setText(QString::number(k_val));
-    ui->p_data->setText(QString::number(p_val));
-    ui->n_data->setText(QString::number(n_val));
-    ui->m_data->setText(QString::number(m_val));
-    ui->N_data->setText(QString::number(N_val));
+    // ui->k_data->setText(QString::number(k_val));
+    // ui->p_data->setText(QString::number(p_val));
+    // ui->n_data->setText(QString::number(n_val));
+    // ui->m_data->setText(QString::number(m_val));
+    // ui->N_data->setText(QString::number(N_val));
 }
 
 void FlightData::on_uploadButton_clicked()
@@ -91,27 +118,5 @@ void FlightData::on_uploadButton_clicked()
 void FlightData::updateTelemetryDisplay(const TelemetryData &data)
 {
     qDebug() << "Updating telemetry display";
-    int digits = 3;
-    ui->batt->setText(QString::number(data.getBattery()));
-    ui->temp->setText(QString::number(data.getTemperature()));
-    ui->x_pos->setText(QString::number(data.getXPos(),'f',digits));
-    ui->y_pos->setText(QString::number(data.getYPos(),'f',digits));
-    ui->z_pos->setText(QString::number(data.getZPos(),'f',digits));
-    ui->x_vel->setText(QString::number(data.getXVel(),'f',digits));
-    ui->y_vel->setText(QString::number(data.getYVel(),'f',digits));
-    ui->z_vel->setText(QString::number(data.getZVel(),'f',digits));
-    ui->x_acc->setText(QString::number(data.getXAcc(),'f',digits));
-    ui->y_acc->setText(QString::number(data.getYAcc(),'f',digits));
-    ui->z_acc->setText(QString::number(data.getZAcc(),'f',digits));
-    ui->pos_var_1->setText(QString::number(data.getPosVariance(0),'f',digits));
-    ui->pos_var_2->setText(QString::number(data.getPosVariance(1),'f',digits));
-    ui->pos_var_3->setText(QString::number(data.getPosVariance(2),'f',digits));
-    ui->vel_var_1->setText(QString::number(data.getVelVariance(0),'f',digits));
-    ui->vel_var_2->setText(QString::number(data.getVelVariance(1),'f',digits));
-    ui->vel_var_3->setText(QString::number(data.getVelVariance(2),'f',digits));
-    ui->alt_1->setText(QString::number(data.getAltitude(0),'f',digits));
-    ui->airspeed->setText(QString::number(data.getAirspeed(),'f',digits));
-    ui->roll->setText(QString::number(data.getRoll(),'f',digits));
-    ui->pitch->setText(QString::number(data.getPitch(),'f',digits));
-    ui->yaw->setText(QString::number(data.getYaw(),'f',digits));
+    controlSystemStateWidget->updateData(data);
 }

@@ -10,11 +10,13 @@ CONFIG += c++17
 
 INCLUDEPATH += pages\
                graphs\
+               widgets\
 
 SOURCES += \
     axesinputhandler.cpp \
     camera.cpp \
     commdialog.cpp \
+    widgets/controlsystemstatewidget.cpp \
     graphs/linegraph.cpp \
     graphs/myq3dscatter.cpp \
     logwindow.cpp \
@@ -30,6 +32,7 @@ HEADERS += \
     axesinputhandler.h \
     camera.h \
     commdialog.h \
+    widgets/controlsystemstatewidget.h \
     graphs/linegraph.h \
     graphs/myq3dscatter.h \
     logwindow.h \
@@ -40,10 +43,11 @@ HEADERS += \
     telemetrydata.h \
     telemetrymodel.h
 
+
 FORMS += \
+    controlsystemstatewidget.ui \
     flightdata.ui \
-    flightgraphs.ui \
-    mainwindow.ui
+    flightgraphs.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

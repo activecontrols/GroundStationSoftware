@@ -25,23 +25,15 @@ public:
     MyQ3DScatter *scatter;
 
     bool initialize2DGraphs();
-    LineGraph *altGraph;
-    LineGraph *throttleGraph;
     LineGraph *pitchGraph;
     LineGraph *rollGraph;
     LineGraph *yawGraph;
 
-    QChartView *altChart;
-    QChartView *throttleChart;
     QChartView *pitchChart;
     QChartView *rollChart;
     QChartView *yawChart;
 
-    QTimer *temp_timer;
-
     void addData();
-
-private slots:
     void updateGraphs();
 
 private:

@@ -32,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent)
     telemetryModel = new TelemetryModel(this);
 
     connect(telemetryModel, &TelemetryModel::telemetryDataAdded, flightData, &FlightData::updateTelemetryDisplay);
+    connect(telemetryModel, &TelemetryModel::telemetryDataAdded, flightGraphs, &FlightGraphs::updateGraphs);
 
     simulateTelemetryData();
 
@@ -78,8 +79,7 @@ void MainWindow::initWindow()
     // connect(twoDGraphAction, &QAction::triggered, this, &MainWindow::on_actionFlight_Logs_triggered);
     // connect(threeDGraphAction, &QAction::triggered, this, &MainWindow::on_action3D_Graph_triggered);
 
-    toolBar = addToolBar("Navigation");
-
+    toolBar = new QToolBar();
     QToolButton *flightDataButton = new QToolButton(toolBar);
     QAction *flightDataAction = new QAction(QIcon(":/assets/flight_data.png"), "Flight Data", this);
     flightDataButton->setDefaultAction(flightDataAction);
@@ -128,11 +128,13 @@ void MainWindow::initWindow()
     toolBar->setFixedHeight(93);
     toolBar->setStyleSheet("QToolBar{font:'Dubai';color:white;spacing:40px;}");
 
+    addToolBar(toolBar);
+
     connect(flightDataAction, &QAction::triggered, this, [=]() { stackedWidget->setCurrentIndex(0); });
     connect(flightGraphsAction, &QAction::triggered, this, [=]() { stackedWidget->setCurrentIndex(1); });
 
-    flightData = new FlightData();
-    flightGraphs = new FlightGraphs();
+    flightData = new FlightData(this);
+    flightGraphs = new FlightGraphs(this);
 
     stackedWidget = new QStackedWidget();
     stackedWidget->addWidget(flightData);
@@ -198,7 +200,7 @@ void MainWindow::generateSimulatedData()
     testTelemetryData.setVelVariance(variance);
     testTelemetryData.setPosVariance(variance);
     float altitude[4] = {static_cast<float>(generator->generateDouble() * 100), static_cast<float>(generator->generateDouble() * 100), static_cast<float>(generator->generateDouble() * 100), static_cast<float>(generator->generateDouble() * 100)};
-    testTelemetryData.setAltitude(altitude);
+    testTelemetryData.setAttitude(altitude);
     testTelemetryData.setRoll(generator->generateDouble() * 100);
     testTelemetryData.setPitch(generator->generateDouble() * 100);
     testTelemetryData.setYaw(generator->generateDouble() * 100);

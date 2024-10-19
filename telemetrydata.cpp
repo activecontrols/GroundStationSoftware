@@ -4,6 +4,7 @@ TelemetryData::TelemetryData()
 {
     battery = 0;
     temperature = 0;
+    timestamp = 0;
     x_pos = 0;
     y_pos = 0;
     z_pos = 0;
@@ -24,7 +25,7 @@ TelemetryData::TelemetryData()
     }
     for (int i = 0; i < 4; i++)
     {
-        altitude[i] = 0;
+        attitude[i] = 0;
     }
     roll = 0;
     pitch = 0;
@@ -35,6 +36,7 @@ void TelemetryData::parseValues(const QStringList &values)
     int i = 0; // So that you can change order easily without changing indexes
     battery = values[i++].toInt();
     temperature = values[i++].toInt();
+    timestamp = values[i++].toULongLong();
 
     x_pos = values[i++].toFloat();
     y_pos = values[i++].toFloat();
@@ -57,7 +59,7 @@ void TelemetryData::parseValues(const QStringList &values)
     }
     for (int j = 0; j < 4; j++)
     {
-        altitude[j] = values[i++].toFloat();
+        attitude[j] = values[i++].toFloat();
     }
     roll = values[i++].toFloat();
     pitch = values[i++].toFloat();
@@ -72,6 +74,11 @@ uint8_t TelemetryData::getBattery() const
 int16_t TelemetryData::getTemperature() const
 {
     return temperature;
+}
+
+uint64_t TelemetryData::getTimestamp() const
+{
+    return timestamp;
 }
 
 float TelemetryData::getXPos() const
@@ -134,9 +141,9 @@ float TelemetryData::getPosVariance(int index) const
     return pos_variance[index];
 }
 
-float TelemetryData::getAltitude(int index) const
+float TelemetryData::getAttitude(int index) const
 {
-    return altitude[index];
+    return attitude[index];
 }
 
 float TelemetryData::getRoll() const
@@ -162,6 +169,11 @@ void TelemetryData::setBattery(uint8_t battery)
 void TelemetryData::setTemperature(int16_t temperature)
 {
     this->temperature = temperature;
+}
+
+void TelemetryData::setTimestamp(uint64_t timestamp)
+{
+    this->timestamp = timestamp;
 }
 
 void TelemetryData::setXPos(float x_pos)
@@ -222,11 +234,11 @@ void TelemetryData::setPosVariance(float variance[3])
     }
 }
 
-void TelemetryData::setAltitude(float altitude[4])
+void TelemetryData::setAttitude(float attitude[4])
 {
     for (int i = 0; i < 4; i++)
     {
-        this->altitude[i] = altitude[i];
+        this->attitude[i] = attitude[i];
     }
 }
 

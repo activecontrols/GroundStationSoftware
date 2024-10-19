@@ -16,7 +16,7 @@ int TelemetryModel::rowCount(const QModelIndex &parent) const
 int TelemetryModel::columnCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
-    return 3;  // Altitude, Velocity, IMU Acceleration
+    return 15; // Number of telemetry data fields
 }
 
 QVariant TelemetryModel::data(const QModelIndex &index, int role) const
