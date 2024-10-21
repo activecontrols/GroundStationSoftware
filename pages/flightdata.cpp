@@ -48,7 +48,7 @@ FlightData::FlightData(QWidget *parent)
     controlSystemStateProxy->setPos(graphicsView->width() - controlSystemStateWidget->width() - 10, 0);
 
     QPushButton *toggleButton = new QPushButton("Hide");
-    toggleButton->setStyleSheet("font: 12pt 'Bahnschrift'; color: rgb(218, 170, 0); background-color: black");
+    toggleButton->setStyleSheet("font: 12pt 'Bahnschrift'; color: rgb(218, 170, 0); background-color:black");
     QGraphicsProxyWidget *toggleButtonProxy = scene->addWidget(toggleButton);
     toggleButtonProxy->setPos(graphicsView->width() - toggleButton->width() - 10, 0);
 

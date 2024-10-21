@@ -4,25 +4,25 @@
 #include <QtCore/qobject.h>
 #include <QtDataVisualization/q3dscatter.h>
 
-class MyQ3DScatter : public QObject
+#include "axesinputhandler.h"
+#include "qwidget.h"
+
+class MyQ3DScatter : public QWidget
 {
     Q_OBJECT
 public:
-    MyQ3DScatter();
+    explicit MyQ3DScatter(QWidget *parent = nullptr);
     ~MyQ3DScatter();
 
-    bool initialize();
-    void addData();
-    QWidget *scatterWidget() { return m_scatterWidget; }
-
-
 public slots:
-    void receiveChange();
+    void updateGraph(QVector3D data);
 
 private:
-    Q3DScatter *m_scatterGraph = nullptr;
-    QWidget *m_container = nullptr;
-    QWidget *m_scatterWidget = nullptr;
+    Q3DScatter *scatterGraph = nullptr;
+    AxesInputHandler *inputHandler = nullptr;
+
+    bool initialize();
+    void toggleTimeRange();
 };
 
 #endif

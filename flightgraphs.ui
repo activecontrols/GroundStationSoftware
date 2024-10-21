@@ -60,7 +60,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QChartView" name="posVarChart">
+           <widget class="QChartView" name="xVelChart">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -70,7 +70,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QChartView" name="velVarChart">
+           <widget class="QChartView" name="yVelChart">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -80,7 +80,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QChartView" name="pitchChart">
+           <widget class="QChartView" name="zVelChart">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -90,7 +90,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QChartView" name="rollChart">
+           <widget class="QChartView" name="xAccChart">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -100,7 +100,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QChartView" name="yawChart">
+           <widget class="QChartView" name="yAccChart">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -110,7 +110,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QChartView" name="one">
+           <widget class="QChartView" name="zAccChart">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
               <horstretch>0</horstretch>

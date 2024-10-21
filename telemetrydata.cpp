@@ -76,7 +76,7 @@ int16_t TelemetryData::getTemperature() const
     return temperature;
 }
 
-uint64_t TelemetryData::getTimestamp() const
+float TelemetryData::getTimestamp() const
 {
     return timestamp;
 }
@@ -171,7 +171,7 @@ void TelemetryData::setTemperature(int16_t temperature)
     this->temperature = temperature;
 }
 
-void TelemetryData::setTimestamp(uint64_t timestamp)
+void TelemetryData::setTimestamp(float timestamp)
 {
     this->timestamp = timestamp;
 }

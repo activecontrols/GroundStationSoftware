@@ -101,7 +101,7 @@ background-color: rgb(218, 170, 0);</string>
     </widget>
    </item>
    <item row="12" column="4" colspan="3">
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="timestamp_label">
      <property name="text">
       <string>Timestamp</string>
      </property>
@@ -178,7 +178,7 @@ background-color: rgb(218, 170, 0);</string>
     </widget>
    </item>
    <item row="12" column="7" colspan="2">
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="timestamp">
      <property name="text">
       <string>0:00:00</string>
      </property>

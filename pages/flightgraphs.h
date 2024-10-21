@@ -3,6 +3,7 @@
 
 #include "graphs/linegraph.h"
 #include "graphs/myq3dscatter.h"
+#include "telemetrydata.h"
 
 #include <QWidget>
 #include <QtCharts>
@@ -22,22 +23,21 @@ public:
     explicit FlightGraphs(QWidget *parent = nullptr);
     ~FlightGraphs();
 
-    MyQ3DScatter *scatter;
+    LineGraph *xVelGraph;
+    LineGraph *yVelGraph;
+    LineGraph *zVelGraph;
+
+    QChartView *xVelChart;
+    QChartView *yVelChart;
+    QChartView *zVelChart;
+
 
     bool initialize2DGraphs();
-    LineGraph *pitchGraph;
-    LineGraph *rollGraph;
-    LineGraph *yawGraph;
-
-    QChartView *pitchChart;
-    QChartView *rollChart;
-    QChartView *yawChart;
-
-    void addData();
-    void updateGraphs();
+    void updateGraphs(const TelemetryData &data);
 
 private:
     Ui::FlightGraphs *ui;
+    MyQ3DScatter *scatter;
 };
 
 #endif // FLIGHTGRAPHS_H

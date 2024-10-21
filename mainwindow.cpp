@@ -11,10 +11,16 @@
 
 #include <QRandomGenerator>
 
+// Delete this when serial port is working
 QTimer *simulateTimer;
+uint64_t first = QDateTime::currentMSecsSinceEpoch();
+TelemetryData previousData;
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    logWindow(new LogWindow(this)),
+    commDialog(new CommDialog(this)),
+    telemetryModel(new TelemetryModel(this))
 {
     initWindow();
     // initSerialPort();
@@ -22,14 +28,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     stackedWidget->setCurrentIndex(0);
 
-    logWindow = new LogWindow(this);
-    commDialog = new CommDialog(this);
-
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MainWindow::updateClock);
     timer->start(1000);
-
-    telemetryModel = new TelemetryModel(this);
 
     connect(telemetryModel, &TelemetryModel::telemetryDataAdded, flightData, &FlightData::updateTelemetryDisplay);
     connect(telemetryModel, &TelemetryModel::telemetryDataAdded, flightGraphs, &FlightGraphs::updateGraphs);
@@ -57,7 +58,7 @@ void MainWindow::onDataReceived()
     QByteArray data = serial->readAll();
     QString telemetryStr = QString::fromUtf8(data);
     QStringList telemetryList = telemetryStr.split(",");
-    if (telemetryList.size() != 14) {
+    if (telemetryList.size() != 25) {
         return;
     }
 
@@ -176,7 +177,7 @@ void MainWindow::simulateTelemetryData()
 {
     simulateTimer = new QTimer(this);
     connect(simulateTimer, &QTimer::timeout, this, &MainWindow::generateSimulatedData);
-    simulateTimer->start(500);
+    simulateTimer->start(100);
 }
 
 void MainWindow::generateSimulatedData()
@@ -186,15 +187,17 @@ void MainWindow::generateSimulatedData()
     TelemetryData testTelemetryData;
     testTelemetryData.setBattery(generator->bounded(0, 100));
     testTelemetryData.setTemperature(generator->bounded(-20, 50));
-    testTelemetryData.setXPos(generator->generateDouble() * 100);
-    testTelemetryData.setYPos(generator->generateDouble() * 100);
-    testTelemetryData.setZPos(generator->generateDouble() * 100);
-    testTelemetryData.setXVel(generator->generateDouble() * 100);
-    testTelemetryData.setYVel(generator->generateDouble() * 100);
-    testTelemetryData.setZVel(generator->generateDouble() * 100);
-    testTelemetryData.setXAcc(generator->generateDouble() * 100);
-    testTelemetryData.setYAcc(generator->generateDouble() * 100);
-    testTelemetryData.setZAcc(generator->generateDouble() * 100);
+    testTelemetryData.setTimestamp((float) (QDateTime::currentMSecsSinceEpoch() - first)/1000.0);
+    // Make all points relative to the previous point
+    testTelemetryData.setXPos(previousData.getXPos() + (0.5 - generator->generateDouble()));
+    testTelemetryData.setYPos(previousData.getYPos() + (0.5 - generator->generateDouble()));
+    testTelemetryData.setZPos(previousData.getZPos() + (0.5 - generator->generateDouble()));
+    testTelemetryData.setXVel(previousData.getXVel() + (0.5 - generator->generateDouble()));
+    testTelemetryData.setYVel(previousData.getYVel() + (0.5 - generator->generateDouble()));
+    testTelemetryData.setZVel(previousData.getZVel() + (0.5 - generator->generateDouble()));
+    testTelemetryData.setXAcc(previousData.getXAcc() + (0.5 - generator->generateDouble()));
+    testTelemetryData.setYAcc(previousData.getYAcc() + (0.5 - generator->generateDouble()));
+    testTelemetryData.setZAcc(previousData.getZAcc() + (0.5 - generator->generateDouble()));
     testTelemetryData.setAirspeed(generator->generateDouble() * 100);
     float variance[3] = {static_cast<float>(generator->generateDouble() * 100), static_cast<float>(generator->generateDouble() * 100), static_cast<float>(generator->generateDouble() * 100)};
     testTelemetryData.setVelVariance(variance);
@@ -205,6 +208,7 @@ void MainWindow::generateSimulatedData()
     testTelemetryData.setPitch(generator->generateDouble() * 100);
     testTelemetryData.setYaw(generator->generateDouble() * 100);
     telemetryModel->addTelemetryData(testTelemetryData);
+    previousData = testTelemetryData;
 }
 
 void MainWindow::updateClock()

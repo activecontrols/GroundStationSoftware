@@ -13,16 +13,12 @@
 FlightGraphs::FlightGraphs(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::FlightGraphs)
+    , scatter(new MyQ3DScatter())
 {
     ui->setupUi(this);
 
-    scatter = new MyQ3DScatter();
-
-    if (!scatter->initialize()) {
-        QMessageBox::warning(nullptr, "MyQ3DScatter", "Couldn't initialize the OpenGL context.");
-    }
     ui->gridLayout->removeWidget(ui->placeholder);
-    ui->gridLayout->addWidget(scatter->scatterWidget(), 0, 0, 3, 2);
+    ui->gridLayout->addWidget(scatter, 0, 0, 3, 2);
 
     if (!initialize2DGraphs()) {
         QMessageBox::warning(nullptr, "2D Graphs", "Couldn't properly initalize.");
@@ -35,17 +31,18 @@ FlightGraphs::~FlightGraphs()
 }
 
 bool FlightGraphs::initialize2DGraphs() {
-    pitchGraph = new LineGraph();
-    rollGraph = new LineGraph();
-    yawGraph = new LineGraph();
+    xVelGraph = new LineGraph();
+    yVelGraph = new LineGraph();
+    zVelGraph = new LineGraph();
 
-    pitchChart = new QChartView();
-    rollChart = new QChartView();
-    yawChart = new QChartView();
+    xVelGraph->label("X velocity", "m/s");
+    yVelGraph->label("Y velocity", "m/s");
+    zVelGraph->label("Z velocity", "m/s");
 
-    pitchGraph->initialize("Pitch", "meters");
-    rollGraph->initialize("Roll", "meters");
-    yawGraph->initialize("Yaw", "meters");
+    ui->xVelChart->setChart(xVelGraph->getChart());
+    ui->yVelChart->setChart(yVelGraph->getChart());
+    ui->zVelChart->setChart(zVelGraph->getChart());
+
 
     /*
     altChart->setChart(altGraph->getChart());
@@ -69,20 +66,13 @@ bool FlightGraphs::initialize2DGraphs() {
     container->setLayout(vLayout);
     */
     // ui->graphs->setWidget(container);
-    ui->pitchChart->setChart(pitchGraph->getChart());
-    ui->rollChart->setChart(rollGraph->getChart());
-    ui->yawChart->setChart(yawGraph->getChart());
 
     return true;
 }
 
-void FlightGraphs::updateGraphs() {
-    // pitchGraph->addData();
-    // rollGraph->addData();
-    // yawGraph->addData();
-}
-
-void FlightGraphs::addData()
-{
-    scatter->addData();
+void FlightGraphs::updateGraphs(const TelemetryData &data) {
+    scatter->updateGraph(QVector3D(data.getXPos(), data.getYPos(), data.getZPos()));
+    xVelGraph->updateGraph(QPointF(data.getTimestamp(), data.getXVel()));
+    yVelGraph->updateGraph(QPointF(data.getTimestamp(), data.getYVel()));
+    zVelGraph->updateGraph(QPointF(data.getTimestamp(), data.getZVel()));
 }

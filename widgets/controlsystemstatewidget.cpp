@@ -18,6 +18,8 @@ void ControlSystemStateWidget::updateData(const TelemetryData &data)
     int digits = 3;
     ui->batt->setText(QString::number(data.getBattery()));
     ui->temp->setText(QString::number(data.getTemperature()));
+    // Make this display the UNIX Epoch time into the hours, minutes, seconds, and milliseconds
+    ui->timestamp->setText(QString::number(data.getTimestamp()));
     ui->x_pos->setText(QString::number(data.getXPos(),'f',digits));
     ui->y_pos->setText(QString::number(data.getYPos(),'f',digits));
     ui->z_pos->setText(QString::number(data.getZPos(),'f',digits));

@@ -10,7 +10,7 @@ public:
 
     uint8_t getBattery() const;
     int16_t getTemperature() const;
-    uint64_t getTimestamp() const;
+    float getTimestamp() const;
     float getXPos() const;
     float getYPos() const;
     float getZPos() const;
@@ -30,7 +30,7 @@ public:
 
     void setBattery(uint8_t battery);
     void setTemperature(int16_t temperature);
-    void setTimestamp(uint64_t timestamp);
+    void setTimestamp(float timestamp);
     void setXPos(float x_pos);
     void setYPos(float y_pos);
     void setZPos(float z_pos);
@@ -52,7 +52,7 @@ public:
 private:
     uint8_t battery;
     int16_t temperature; // Temperature in Celsius
-    uint64_t timestamp; // Timestamp in milliseconds
+    float timestamp; // Timestamp in seconds (to the milliseconds)
 
     // Control System State
     float x_pos; // X position in body frame in m
@@ -71,10 +71,9 @@ private:
 
     float attitude[4]; // Altitude represented as Quaternion
 
-    float roll; // Angular rate in roll axis
     float pitch; // Angular rate in pitch axis
+    float roll; // Angular rate in roll axis
     float yaw; // Angular rate in yaw axis
-
 
 signals:
 };
