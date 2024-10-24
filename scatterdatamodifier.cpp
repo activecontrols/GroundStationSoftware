@@ -15,7 +15,7 @@ using namespace Qt::StringLiterals;
 
 const int numberOfItems = 10000;
 const float curveDivider = 7.5f;
-const int lowerNumberOfItems = 900;
+const int lowerNumberOfItems = 200;
 const float lowerCurveDivider = 0.75f;
 
 ScatterDataModifier::ScatterDataModifier(Q3DScatter *scatter, QObject *parent) :
@@ -23,38 +23,26 @@ ScatterDataModifier::ScatterDataModifier(Q3DScatter *scatter, QObject *parent) :
     m_graph(scatter),
     m_itemCount(lowerNumberOfItems),
     m_curveDivider(lowerCurveDivider),
-    //! [7]
     m_inputHandler(new AxesInputHandler(scatter))
-//! [7]
 {
-    //! [0]
     m_graph->activeTheme()->setType(Q3DTheme::ThemeStoneMoss);
     m_graph->setShadowQuality(QAbstract3DGraph::ShadowQualitySoftHigh);
     m_graph->scene()->activeCamera()->setCameraPreset(Q3DCamera::CameraPresetFront);
     m_graph->scene()->activeCamera()->setZoomLevel(100.f);
-    //! [0]
 
-    //! [1]
     auto *proxy = new QScatterDataProxy;
     auto *series = new QScatter3DSeries(proxy);
     series->setItemLabelFormat(u"@xTitle: @xLabel @yTitle: @yLabel @zTitle: @zLabel"_s);
     series->setMeshSmooth(m_smooth);
     m_graph->addSeries(series);
-    //! [1]
 
-    //! [8]
     // Give ownership of the handler to the graph and make it the active handler
     m_graph->setActiveInputHandler(m_inputHandler);
-    //! [8]
 
-    //! [9]
     // Give our axes to the input handler
     m_inputHandler->setAxes(m_graph->axisX(), m_graph->axisZ(), m_graph->axisY());
-    //! [9]
 
-    //! [2]
-    addData();
-    //! [2]
+    // addData();
 }
 
 void ScatterDataModifier::addData()
@@ -72,28 +60,6 @@ void ScatterDataModifier::addData()
     //! [4]
 
     m_graph->seriesList().at(0)->dataProxy()->addItem(QScatterDataItem(randVector()));
-    /*
-#ifdef RANDOM_SCATTER
-    for (int i = 0; i < m_itemCount; ++i)
-        dataArray->append(QScatterDataItem(randVector()));
-#else
-    //! [5]
-    const float limit = qSqrt(m_itemCount) / 2.0f;
-    for (int i = -limit; i < limit; ++i) {
-        for (int j = -limit; j < limit; ++j) {
-            const float x = float(i) + 0.5f;
-            const float y = qCos(qDegreesToRadians(float(i * j) / m_curveDivider));
-            const float z = float(j) + 0.5f;
-            dataArray->append(QScatterDataItem({x, y, z}));
-        }
-    }
-    //! [5]
-#endif
-
-    //! [6]
-    m_graph->seriesList().at(0)->dataProxy()->resetArray(dataArray);
-    //! [6]
-    */
 }
 
 void ScatterDataModifier::changeStyle(int style)

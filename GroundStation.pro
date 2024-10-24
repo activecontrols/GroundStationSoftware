@@ -8,35 +8,46 @@ CONFIG += c++17
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+INCLUDEPATH += pages\
+               graphs\
+               widgets\
+
 SOURCES += \
     axesinputhandler.cpp \
     camera.cpp \
     commdialog.cpp \
-    flightdata.cpp \
-    flightgraphs.cpp \
-    linegraph.cpp \
+    widgets/controlsystemstatewidget.cpp \
+    graphs/linegraph.cpp \
+    graphs/myq3dscatter.cpp \
     logwindow.cpp \
     main.cpp \
     mainwindow.cpp \
-    myq3dscatter.cpp \
-    scatterdatamodifier.cpp
+    pages/flightdata.cpp \
+    pages/flightgraphs.cpp \
+    scatterdatamodifier.cpp \
+    telemetrydata.cpp \
+    telemetrymodel.cpp
 
 HEADERS += \
     axesinputhandler.h \
     camera.h \
     commdialog.h \
-    flightdata.h \
-    flightgraphs.h \
-    linegraph.h \
+    widgets/controlsystemstatewidget.h \
+    graphs/linegraph.h \
+    graphs/myq3dscatter.h \
     logwindow.h \
     mainwindow.h \
-    myq3dscatter.h \
-    scatterdatamodifier.h
+    pages/flightdata.h \
+    pages/flightgraphs.h \
+    scatterdatamodifier.h \
+    telemetrydata.h \
+    telemetrymodel.h
+
 
 FORMS += \
+    controlsystemstatewidget.ui \
     flightdata.ui \
-    flightgraphs.ui \
-    mainwindow.ui
+    flightgraphs.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -47,4 +58,6 @@ RESOURCES += \
     resources.qrc
 
 DISTFILES += \
-    README.md
+    README.md \
+    .gitignore
+

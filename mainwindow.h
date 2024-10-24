@@ -2,15 +2,15 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTimer>
+#include <QSerialPort>
+#include <QStackedWidget>
+#include <QToolBar>
+#include <flightdata.h>
+#include <flightgraphs.h>
 #include "commdialog.h"
-#include "QTimer"
 #include "logwindow.h"
-
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
-}
-QT_END_NAMESPACE
+#include "telemetrymodel.h"
 
 class MainWindow : public QMainWindow
 {
@@ -20,31 +20,44 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-signals:
-    void change();
-
-public slots:
-    void initialize();
     void updateClock();
     void showCOMConnection();
     // void showSuccessfulMemAlloc();
     // void showUnsuccessfulMemAlloc();
 
+signals:
+    void telemetryDataReceived(const QByteArray &data);
+    void change();
+
 private:
-    Ui::MainWindow *ui;
+    QStackedWidget *stackedWidget;
+    QMenuBar *menuBar;
+    QToolBar *toolBar;
+    FlightData *flightData;
+    FlightGraphs *flightGraphs;
+    QLabel *clock;
+
     LogWindow *logWindow;
     CommDialog *commDialog;
     QTimer *timer;
+    QSerialPort *serial;
+    QFile *telemetryFile;
+    QTextStream *stream;
+    TelemetryModel *telemetryModel;
 
+    void initWindow();
+    void initSerialPort();
+    void initTelemetryFile();
+
+    void simulateTelemetryData();
+    void generateSimulatedData();
 
 private slots:
+    void onDataReceived();
     // void on_upload_telem_clicked();
     // void on_launch_button_released();
     // void on_connect_action_triggered();
     // void on_log_action_triggered();
-    void on_actionFlight_Graphs_triggered();
-    void on_actionFlight_Data_triggered();
-    void on_actionConnect_triggered();
     void on_actionFlight_Logs_triggered();
     void on_action3D_Graph_triggered();
 };

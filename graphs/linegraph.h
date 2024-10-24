@@ -2,7 +2,9 @@
 #define LINEGRAPH_H
 
 #include <QObject>
+#include <QtCharts/QChart>
 #include <QtCharts/QLineSeries>
+#include <QtCharts/QValueAxis>
 
 class LineGraph : public QObject
 {
@@ -10,14 +12,23 @@ class LineGraph : public QObject
 public:
     explicit LineGraph(QObject *parent = nullptr);
 
-    void initialize(QString, QString);
+    void label(QString title, QString yAxisLabel);
     QChart *getChart() { return chart; }
 
-    void addData(qreal, qreal);
+public slots:
+    void updateGraph(QPointF data);
+
+
 private:
-    QLineSeries *series;
     QChart *chart;
-    QList<QPointF> *list;
+    QLineSeries *series;
+    QValueAxis *axisX;
+    QValueAxis *axisY;
+
+    qreal minY = -10.0f;
+    qreal maxY = 10.0f;
+
+    float sampleRange = 100.0f;
     bool autoScroll = true;
 
 

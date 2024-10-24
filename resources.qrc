@@ -1,12 +1,13 @@
 <RCC>
-    <qresource prefix="/imgs">
-        <file>PSP-AC-1Color-white.png</file>
-        <file>checkmark.png</file>
-        <file>flight_data.png</file>
-        <file>flight_graph.png</file>
-        <file>background.jpg</file>
-        <file>flight_tests.png</file>
-        <file>flight_logs.png</file>
-        <file>connect_icon.png</file>
+    <qresource prefix="/imgs"/>
+    <qresource prefix="/">
+        <file>assets/background.jpg</file>
+        <file>assets/checkmark.png</file>
+        <file>assets/connect_icon.png</file>
+        <file>assets/flight_data.png</file>
+        <file>assets/flight_graph.png</file>
+        <file>assets/flight_logs.png</file>
+        <file>assets/flight_tests.png</file>
+        <file>assets/PSP-AC-1Color-white.png</file>
     </qresource>
 </RCC>
