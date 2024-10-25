@@ -30,3 +30,8 @@ This program is currently a combination of UI form files and widget-based files.
 There tends to be a lot of problems with the building portion of Qt when it comes to QtDesigner, so
 if that is sitll in the code, then there might be issues related to it. Check the build folders and
 their related moc and ui files.
+
+## Todo for Francis
+- repleace simulateTelemData() in mainwindow.cpp and replace with function that is talking to Teensy
+- update CommsDialog (Jeff suggests storing serial in mainwindow and then accessing it through CommsDialog)
+- set up initialization of serial port
