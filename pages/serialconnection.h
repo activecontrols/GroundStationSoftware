@@ -9,6 +9,7 @@
 #include <QGraphicsProxyWidget>
 #include <QGraphicsView>
 #include <QVBoxLayout>
+#include <QComboBox>
 
 class SerialConnection : public QWidget
 {
@@ -21,18 +22,17 @@ public:
 
 private slots:
     void onConnectButtonClicked();
-    void onSendButtonClicked();
-    void serialReadyRead();
 
 private:
     QSerialPort* m_serial;
     QList<QSerialPortInfo> m_serialPortList;
     QTimer* m_scanTimer;
     QPushButton* m_connectButton;
-    QPushButton* m_sendButton;
+    QComboBox* m_comboBox;
 
     QGraphicsView *graphicsView;
     QGraphicsScene *scene;
+    QVBoxLayout *layout;
 
     void updateSerialPorts();
 };
