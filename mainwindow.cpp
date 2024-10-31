@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(telemetryModel, &TelemetryModel::telemetryDataAdded, flightData, &FlightData::updateTelemetryDisplay);
     connect(telemetryModel, &TelemetryModel::telemetryDataAdded, flightGraphs, &FlightGraphs::updateGraphs);
+    connect(serialConnection, &SerialConnection::updateSerial, this, &MainWindow::onUpdateSerial);
 
     simulateTelemetryData();
 
@@ -64,6 +65,14 @@ void MainWindow::onDataReceived()
     }
 
     emit telemetryDataReceived(data);
+}
+
+void MainWindow::onUpdateSerial(QSerialPort* newSerial)
+{
+    serial = newSerial;
+    qDebug() << "Updating serial in main window!\n";
+    QMessageBox::information(this, "Connection Successful", "Serial port connected");
+    logWindow->addCOMConnected();
 }
 
 void MainWindow::initWindow()
@@ -149,27 +158,6 @@ void MainWindow::initWindow()
     // stackedWidget->addWidget(serialConnection);
 
     setCentralWidget(stackedWidget);
-}
-
-void MainWindow::initSerialPort()
-{
-    qDebug() << "Initializing Port\n";
-    // Set the serial port name and parameters (modify COM port as needed)
-    serial->setPortName("COM3");
-    serial->setBaudRate(QSerialPort::Baud9600);
-    serial->setDataBits(QSerialPort::Data8);
-    serial->setParity(QSerialPort::NoParity);
-    serial->setStopBits(QSerialPort::OneStop);
-    serial->setFlowControl(QSerialPort::NoFlowControl);
-
-    qDebug() << "Trying to open port\n";
-    // Open the serial port
-    if (serial->open(QIODevice::ReadWrite)) {
-        connect(serial, &QSerialPort::readyRead, this, &MainWindow::onDataReceived);
-        qDebug() << "Serial port opened successfully!";
-    } else {
-        qDebug() << "Failed to open serial port: " << serial->errorString();
-    }
 }
 
 void MainWindow::initTelemetryFile()

@@ -19,9 +19,12 @@ public:
     ~SerialConnection();
     const QSerialPort* getSerial() const;
 
+signals:
+    void updateSerial(QSerialPort* newSerial);
 
 private slots:
     void onConnectButtonClicked();
+    void updateSerialPorts();
 
 private:
     QSerialPort* m_serial;
@@ -32,7 +35,7 @@ private:
 
     QVBoxLayout *layout;
 
-    void updateSerialPorts();
+
 };
 
 #endif // SERIALCONNECTION_H
