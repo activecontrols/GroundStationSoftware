@@ -61,7 +61,7 @@ void MainWindow::onUpdateSerial(QSerialPort* newSerial)
     {
         QMessageBox::information(this, "Connection Successful", "Serial port connected");
         logWindow->addCOMConnected();
-        comms.init(serial);
+        comms.init(serial, telemetryModel);
         connect(serial, &QSerialPort::readyRead, this, &MainWindow::onDataReceived);
     }
     else

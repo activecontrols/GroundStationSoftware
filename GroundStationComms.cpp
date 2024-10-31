@@ -1,12 +1,9 @@
 #include "GroundStationComms.h"
 #include <cstring>
 #include <fcntl.h>
-#include <iostream>
 #include <unistd.h>
-#include <iomanip>
 #include <QDebug>
-
-#define LINUX
+#include <QDateTime>
 
 QSerialPort* global_serial;
 
@@ -27,23 +24,24 @@ int writeToSerialPort(int fd, const char* buffer, size_t size)
 }
 
 void printTelem(const fmav_control_system_state_t& telem) {
-  std::cout << std::fixed << std::setprecision(2); // Set precision for floats
-    std::cout << "time_usec: " << telem.time_usec << '\n';
-    std::cout << "x_acc: " << telem.x_acc << ", y_acc: " << telem.y_acc << ", z_acc: " << telem.z_acc << '\n';
-    std::cout << "x_vel: " << telem.x_vel << ", y_vel: " << telem.y_vel << ", z_vel: " << telem.z_vel << '\n';
-    std::cout << "x_pos: " << telem.x_pos << ", y_pos: " << telem.y_pos << ", z_pos: " << telem.z_pos << '\n';
-    std::cout << "airspeed: " << telem.airspeed << '\n';
-    std::cout << "vel_variance: [" << telem.vel_variance[0] << ", " << telem.vel_variance[1] << ", " << telem.vel_variance[2] << "]\n";
-    std::cout << "pos_variance: [" << telem.pos_variance[0] << ", " << telem.pos_variance[1] << ", " << telem.pos_variance[2] << "]\n";
-    std::cout << "q (quaternion): [" << telem.q[0] << ", " << telem.q[1] << ", " << telem.q[2] << ", " << telem.q[3] << "]\n";
-    std::cout << "roll_rate: " << telem.roll_rate << ", pitch_rate: " << telem.pitch_rate << ", yaw_rate: " << telem.yaw_rate << '\n';
+  // qDebug() << std::fixed << std::setprecision(2); // Set precision for floats
+    qDebug() << "time_usec: " << telem.time_usec << '\n';
+    qDebug() << "x_acc: " << telem.x_acc << ", y_acc: " << telem.y_acc << ", z_acc: " << telem.z_acc << '\n';
+    qDebug() << "x_vel: " << telem.x_vel << ", y_vel: " << telem.y_vel << ", z_vel: " << telem.z_vel << '\n';
+    qDebug() << "x_pos: " << telem.x_pos << ", y_pos: " << telem.y_pos << ", z_pos: " << telem.z_pos << '\n';
+    qDebug() << "airspeed: " << telem.airspeed << '\n';
+    qDebug() << "vel_variance: [" << telem.vel_variance[0] << ", " << telem.vel_variance[1] << ", " << telem.vel_variance[2] << "]\n";
+    qDebug() << "pos_variance: [" << telem.pos_variance[0] << ", " << telem.pos_variance[1] << ", " << telem.pos_variance[2] << "]\n";
+    qDebug() << "q (quaternion): [" << telem.q[0] << ", " << telem.q[1] << ", " << telem.q[2] << ", " << telem.q[3] << "]\n";
+    qDebug() << "roll_rate: " << telem.roll_rate << ", pitch_rate: " << telem.pitch_rate << ", yaw_rate: " << telem.yaw_rate << '\n';
 }
 
 GroundCommsManager::GroundCommsManager() {}
 
-void GroundCommsManager::init(QSerialPort* serial)
+void GroundCommsManager::init(QSerialPort* serial, TelemetryModel* model)
 {
-  global_serial = serial;
+    global_serial = serial;
+    telemModel = model;
 }
 
 void GroundCommsManager::spin(QByteArray buffer)
@@ -78,6 +76,37 @@ void GroundCommsManager::sendCommand(const std::string& command, float params[7]
   );
 }
 
+void GroundCommsManager::telemToModel(const fmav_control_system_state_t& telem_payload)
+{
+    TelemetryData data;
+    // data.setBattery(telem_payload....);
+    // data.setTemperature(telem_payload.);
+    data.setTimestamp((float) (QDateTime::currentMSecsSinceEpoch())/1000.0);
+    // Make all points relative to the previous point
+    data.setXPos(telem_payload.x_pos);
+    data.setYPos(telem_payload.y_pos);
+    data.setZPos(telem_payload.z_pos);
+    data.setXVel(telem_payload.x_vel);
+    data.setYVel(telem_payload.y_vel);
+    data.setZVel(telem_payload.z_vel);
+    data.setXAcc(telem_payload.x_acc);
+    data.setYAcc(telem_payload.y_acc);
+    data.setZAcc(telem_payload.z_acc);
+    data.setAirspeed(telem_payload.airspeed);
+    float velVariance[3] {telem_payload.vel_variance[0], telem_payload.vel_variance[1], telem_payload.vel_variance[2]};
+    float posVariance[3] {telem_payload.pos_variance[0], telem_payload.pos_variance[1], telem_payload.pos_variance[2]};
+    data.setVelVariance(velVariance);
+    data.setPosVariance(posVariance);
+    // float altitude[4] = {telem_payload.};
+    // data.setAttitude(altitude);
+    data.setRoll(telem_payload.roll_rate);
+    data.setPitch(telem_payload.pitch_rate);
+    data.setYaw(telem_payload.yaw_rate);
+
+    telemModel->addTelemetryData(data);
+}
+
+
 void GroundCommsManager::processMessage(fmav_message_t *msg)
 {
   qDebug() << "Processing message: ";
@@ -86,7 +115,7 @@ void GroundCommsManager::processMessage(fmav_message_t *msg)
       qDebug() << "telemetry message\n";
       fmav_control_system_state_t telem_payload;
       fmav_msg_control_system_state_decode(&telem_payload, msg);
-      printTelem(telem_payload);
+      telemToModel(telem_payload);
       return;
     case FASTMAVLINK_MSG_ID_SYS_STATUS:
       qDebug() << "system status message\n";
