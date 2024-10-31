@@ -4,6 +4,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <iomanip>
+#include <QDebug>
 
 #define LINUX
 
@@ -47,6 +48,7 @@ void GroundCommsManager::init(QSerialPort* serial)
 
 void GroundCommsManager::spin(QString buffer)
 {
+    qDebug() << "Spinning message\n";
     for (uint16_t i = 0; i < buffer.length(); i++) {
         char c = buffer[i].unicode();
         uint8_t res = fmav_parse_to_msg(&(this->message), &(this->status), c);
@@ -77,22 +79,22 @@ void GroundCommsManager::sendCommand(const std::string& command, float params[7]
 
 void GroundCommsManager::processMessage(fmav_message_t *msg)
 {
-  std::cout << "Received: ";
+  qDebug() << "Processing message: ";
   switch (msg->msgid) {
     case FASTMAVLINK_MSG_ID_CONTROL_SYSTEM_STATE:
-      std::cout << "telemetry message\n";
+      qDebug() << "telemetry message\n";
       fmav_control_system_state_t telem_payload;
       fmav_msg_control_system_state_decode(&telem_payload, msg);
       printTelem(telem_payload);
       return;
     case FASTMAVLINK_MSG_ID_SYS_STATUS:
-      std::cout << "system status message\n";
+      qDebug() << "system status message\n";
       return;
     case FASTMAVLINK_MSG_ID_HEARTBEAT:
-      std::cout << "heartbeat message\n";
+      qDebug() << "heartbeat message\n";
       return;
     case FASTMAVLINK_MSG_ID_CONTROLLER_STATUS:
-      std::cout << "controller status message\n";
+      qDebug() << "controller status message\n";
       return;
   }
 

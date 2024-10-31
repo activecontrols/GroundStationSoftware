@@ -12,6 +12,7 @@
 #include "commdialog.h"
 #include "logwindow.h"
 #include "telemetrymodel.h"
+#include "GroundStationComms.h"
 
 class MainWindow : public QMainWindow
 {
@@ -50,6 +51,8 @@ private:
     QFile *telemetryFile;
     QTextStream *stream;
     TelemetryModel *telemetryModel;
+
+    GroundCommsManager comms;
 
     void initWindow();
     void initTelemetryFile();

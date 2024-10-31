@@ -32,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(telemetryModel, &TelemetryModel::telemetryDataAdded, flightData, &FlightData::updateTelemetryDisplay);
     connect(telemetryModel, &TelemetryModel::telemetryDataAdded, flightGraphs, &FlightGraphs::updateGraphs);
     connect(serialConnection, &SerialConnection::updateSerial, this, &MainWindow::onUpdateSerial);
+
 }
 
 MainWindow::~MainWindow()
@@ -51,7 +52,7 @@ void MainWindow::onDataReceived()
 {
     QByteArray data = serial->readAll();
     QString str = QString(data);
-    emit telemetryDataReceived(data);
+    comms.spin(str);
 }
 
 void MainWindow::onUpdateSerial(QSerialPort* newSerial)
@@ -61,6 +62,8 @@ void MainWindow::onUpdateSerial(QSerialPort* newSerial)
     {
         QMessageBox::information(this, "Connection Successful", "Serial port connected");
         logWindow->addCOMConnected();
+        comms.init(serial);
+        connect(serial, &QSerialPort::readyRead, this, &MainWindow::onDataReceived);
     }
     else
         QMessageBox::information(this, "Connection Cut", "Serial port disconnected");

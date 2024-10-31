@@ -56,8 +56,8 @@ void SerialConnection::onConnectButtonClicked()
         } else {
             qDebug() << "SERIAL: ERROR!";
         }
-        m_connectButton->setEnabled(true);
     }
+    m_connectButton->setEnabled(true);
     emit updateSerial(m_serial);
 }
 
