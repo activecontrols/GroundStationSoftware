@@ -19,7 +19,7 @@ void fmav_serial_write_char(char c);
 #include <string>
 #include <unordered_map>
 #include <QSerialPort>
-#include <QString>
+#include <QByteArray>
 
 int openSerialPort(const char* portname);
 bool configureSerialPort(int fd, int speed);
@@ -30,7 +30,7 @@ class GroundCommsManager {
 public:
     GroundCommsManager();
     void init(QSerialPort* serial);
-    void spin(QString buffer);
+    void spin(QByteArray buffer);
     void sendCommand(const std::string& command, float params[7], uint8_t target_system, uint8_t target_component, uint8_t confirmation); 
 
 private:

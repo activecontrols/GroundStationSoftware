@@ -46,11 +46,12 @@ void GroundCommsManager::init(QSerialPort* serial)
   global_serial = serial;
 }
 
-void GroundCommsManager::spin(QString buffer)
+void GroundCommsManager::spin(QByteArray buffer)
 {
     qDebug() << "Spinning message\n";
+    const char* charBuff = buffer.constData();
     for (uint16_t i = 0; i < buffer.length(); i++) {
-        char c = buffer[i].unicode();
+        char c = charBuff[i];
         uint8_t res = fmav_parse_to_msg(&(this->message), &(this->status), c);
         if (res == FASTMAVLINK_PARSE_RESULT_OK) {
             this->processMessage(&(this->message));

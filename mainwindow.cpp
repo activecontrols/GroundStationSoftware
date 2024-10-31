@@ -51,8 +51,7 @@ MainWindow::~MainWindow()
 void MainWindow::onDataReceived()
 {
     QByteArray data = serial->readAll();
-    QString str = QString(data);
-    comms.spin(str);
+    comms.spin(data);
 }
 
 void MainWindow::onUpdateSerial(QSerialPort* newSerial)
