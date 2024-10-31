@@ -1,81 +1,17 @@
 #include "GroundStationComms.h"
 #include <cstring>
-#include <errno.h>
 #include <fcntl.h>
 #include <iostream>
-#include <termios.h>
 #include <unistd.h>
 #include <iomanip>
 
 #define LINUX
 
-int global_fd;
+QSerialPort* global_serial;
 
 void fmav_serial_write_char(char c) 
 {
-    writeToSerialPort(global_fd, &c, 1);
-}
-
-int openSerialPort(const char* portname)
-{
-#ifdef LINUX
-    std::cout << "IN\n";
-    int fd = open(portname, O_RDWR | O_NOCTTY | O_NDELAY);
-    std::cout << fd << "\n";
-    std::cout << "OUT\n";
-    if (fd < 0) {
-        std::cerr << "Error opening " << portname << ": "
-             << strerror(errno) << "\n";
-        return -1;
-    }
-    return fd;
-#else
-  return -1;
-#endif
-}
-
-// Function to configure the serial port
-bool configureSerialPort(int fd, int speed)
-{
-#ifdef LINUX
-    struct termios tty;
-    if (tcgetattr(fd, &tty) != 0) {
-        std::cerr << "Error from tcgetattr: " << strerror(errno)
-             << "\n";
-        return false;
-    }
-
-    cfsetospeed(&tty, speed);
-    cfsetispeed(&tty, speed);
-
-    tty.c_cflag
-        = (tty.c_cflag & ~CSIZE) | CS8; // 8-bit characters
-    tty.c_iflag &= ~IGNBRK; // disable break processing
-    tty.c_lflag = 0; // no signaling chars, no echo, no
-                     // canonical processing
-    tty.c_oflag = 0; // no remapping, no delays
-    tty.c_cc[VMIN] = 0; // read doesn't block
-    tty.c_cc[VTIME] = 5; // 0.5 seconds read timeout
-
-    tty.c_iflag &= ~(IXON | IXOFF
-                     | IXANY); // shut off xon/xoff ctrl
-
-    tty.c_cflag
-        |= (CLOCAL | CREAD); // ignore modem controls,
-                             // enable reading
-    tty.c_cflag &= ~(PARENB | PARODD); // shut off parity
-    tty.c_cflag &= ~CSTOPB;
-    tty.c_cflag &= ~CRTSCTS;
-
-    if (tcsetattr(fd, TCSANOW, &tty) != 0) {
-        std::cerr << "Error from tcsetattr: " << strerror(errno)
-             << "\n";
-        return false;
-    }
-    return true;
-#else
-  return false;
-#endif
+    global_serial->write(&c);
 }
 
 int readMAVLinkMessage(int fd, char buffer[MAVLINK_MESSAGE_SIZE])
@@ -104,39 +40,15 @@ void printTelem(const fmav_control_system_state_t& telem) {
 
 GroundCommsManager::GroundCommsManager() {}
 
-void GroundCommsManager::init(const char* portname, const std::unordered_map<std::string, uint16_t>& map)
+void GroundCommsManager::init(QSerialPort* serial)
 {
-  commandMap = map;
-  serialfd = openSerialPort(portname);
-  if (serialfd < 0) {
-    perror("Could not open serial port!");
-    exit(1);
-  }
-
-  std::cout << "configured serial port\n";
-  if (!configureSerialPort(serialfd, B9600)) {
-      close(serialfd);
-      perror("Could not configure serial port!");
-      exit(1);
-  }
-
-  global_fd = serialfd;
+  global_serial = serial;
 }
 
-void GroundCommsManager::spin() 
+void GroundCommsManager::spin(QString buffer)
 {
-  char buffer[MAVLINK_MESSAGE_SIZE];
-  int n = readMAVLinkMessage(serialfd, buffer);
-    if (n < 0) {
-        std::cerr << "Error reading from serial port: "
-            << strerror(errno) << "\n";
-    }
-    else if (n > 0) {
-        std::cout << "Read from serial port " << n << " Bytes\n";
-    }
-
-    for (uint16_t i = 0; i < n; i++) {
-        char c = buffer[i];
+    for (uint16_t i = 0; i < buffer.length(); i++) {
+        char c = buffer[i].unicode();
         uint8_t res = fmav_parse_to_msg(&(this->message), &(this->status), c);
         if (res == FASTMAVLINK_PARSE_RESULT_OK) {
             this->processMessage(&(this->message));

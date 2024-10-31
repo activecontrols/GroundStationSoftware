@@ -18,6 +18,8 @@ void fmav_serial_write_char(char c);
 #include <stdint.h>
 #include <string>
 #include <unordered_map>
+#include <QSerialPort>
+#include <QString>
 
 int openSerialPort(const char* portname);
 bool configureSerialPort(int fd, int speed);
@@ -26,9 +28,9 @@ int writeToSerialPort(int fd, const char* buffer, size_t size);
 
 class GroundCommsManager {
 public:
-    GroundCommsManager(); 
-    void init(const char* portname, const std::unordered_map<std::string, uint16_t>& map); // Initializes commandMap and serial socket
-    void spin(); // Should be run every loop; automatically pulls 1 byte from serial and processes message if necessary
+    GroundCommsManager();
+    void init(QSerialPort* serial);
+    void spin(QString buffer);
     void sendCommand(const std::string& command, float params[7], uint8_t target_system, uint8_t target_component, uint8_t confirmation); 
 
 private:

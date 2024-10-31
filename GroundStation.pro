@@ -11,6 +11,7 @@ CONFIG += c++17
 INCLUDEPATH += pages\
                graphs\
                widgets\
+               message_lib\
 
 SOURCES += \
     axesinputhandler.cpp \
@@ -27,7 +28,8 @@ SOURCES += \
     pages/flightgraphs.cpp \
     scatterdatamodifier.cpp \
     telemetrydata.cpp \
-    telemetrymodel.cpp
+    telemetrymodel.cpp \
+    GroundStationComms.cpp
 
 HEADERS += \
     axesinputhandler.h \
@@ -43,7 +45,8 @@ HEADERS += \
     pages/flightgraphs.h \
     scatterdatamodifier.h \
     telemetrydata.h \
-    telemetrymodel.h
+    telemetrymodel.h \
+    GroundStationComms.h
 
 
 FORMS += \

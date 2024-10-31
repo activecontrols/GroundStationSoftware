@@ -38,25 +38,26 @@ void SerialConnection::onConnectButtonClicked()
     m_connectButton->setEnabled(false);
     QString serialLoc  =  m_comboBox->currentData().toString();
 
-    if (m_serial->isOpen()) {
+    if (m_serial->isOpen())
+    {
         qDebug() << "Serial already connected, disconnecting!";
         m_serial->close();
     }
-
-    m_serial->setPortName(serialLoc);
-    m_serial->setBaudRate(QSerialPort::Baud115200);
-    m_serial->setDataBits(QSerialPort::Data8);
-    m_serial->setParity(QSerialPort::NoParity);
-    m_serial->setStopBits(QSerialPort::OneStop);
-    m_serial->setFlowControl(QSerialPort::NoFlowControl);
-
-    if(m_serial->open(QIODevice::ReadWrite)) {
-        qDebug() << "SERIAL: OK!";
-    } else {
-        qDebug() << "SERIAL: ERROR!";
+    else
+    {
+        m_serial->setPortName(serialLoc);
+        m_serial->setBaudRate(QSerialPort::Baud115200);
+        m_serial->setDataBits(QSerialPort::Data8);
+        m_serial->setParity(QSerialPort::NoParity);
+        m_serial->setStopBits(QSerialPort::OneStop);
+        m_serial->setFlowControl(QSerialPort::NoFlowControl);
+        if(m_serial->open(QIODevice::ReadWrite)) {
+            qDebug() << "SERIAL: OK!";
+        } else {
+            qDebug() << "SERIAL: ERROR!";
+        }
+        m_connectButton->setEnabled(true);
     }
-    m_connectButton->setEnabled(true);
-
     emit updateSerial(m_serial);
 }
 

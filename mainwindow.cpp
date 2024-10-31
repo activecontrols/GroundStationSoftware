@@ -23,11 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     telemetryModel(new TelemetryModel(this))
 {
     initWindow();
-    // initSerialPort();
-    // initTelemetryFile();
-
     stackedWidget->setCurrentIndex(0);
-
 
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MainWindow::updateClock);
@@ -36,10 +32,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(telemetryModel, &TelemetryModel::telemetryDataAdded, flightData, &FlightData::updateTelemetryDisplay);
     connect(telemetryModel, &TelemetryModel::telemetryDataAdded, flightGraphs, &FlightGraphs::updateGraphs);
     connect(serialConnection, &SerialConnection::updateSerial, this, &MainWindow::onUpdateSerial);
-
-    simulateTelemetryData();
-
-    // QObject::connect(this, &MainWindow::change, ui->flightGraphs->scatter, &MyQ3DScatter::receiveChange);
 }
 
 MainWindow::~MainWindow()
@@ -58,21 +50,20 @@ MainWindow::~MainWindow()
 void MainWindow::onDataReceived()
 {
     QByteArray data = serial->readAll();
-    QString telemetryStr = QString::fromUtf8(data);
-    QStringList telemetryList = telemetryStr.split(",");
-    if (telemetryList.size() != 25) {
-        return;
-    }
-
+    QString str = QString(data);
     emit telemetryDataReceived(data);
 }
 
 void MainWindow::onUpdateSerial(QSerialPort* newSerial)
 {
     serial = newSerial;
-    qDebug() << "Updating serial in main window!\n";
-    QMessageBox::information(this, "Connection Successful", "Serial port connected");
-    logWindow->addCOMConnected();
+    if (serial->isOpen())
+    {
+        QMessageBox::information(this, "Connection Successful", "Serial port connected");
+        logWindow->addCOMConnected();
+    }
+    else
+        QMessageBox::information(this, "Connection Cut", "Serial port disconnected");
 }
 
 void MainWindow::initWindow()
@@ -212,49 +203,6 @@ void MainWindow::generateSimulatedData()
 void MainWindow::updateClock()
 {
     clock->setText(QTime::currentTime().toString("h:mm:ss ap"));
-}
-
-// void MainWindow::showCOMConnected()
-// {
-//     ui->connection_label->setStyleSheet("color: green");
-//     logWindow->addCOMConnected();
-// }
-
-// void MainWindow::showSuccessfulMemAlloc()
-// {
-//     QMessageBox::information(this, "Successful Memory Allocation", "Success");
-//     ui->statusbar->showMessage("Successful Memory Allocation", 5000);
-//     logWindow->addSuccessfulMemAlloc();
-// }
-
-// void MainWindow::showUnsuccessfulMemAlloc()
-// {
-//     QMessageBox::warning(this, "Unsuccessful Memory Allocation", "Fail");
-//     ui->statusbar->showMessage("Unsuccessful Memory Allocation", 5000);
-//     logWindow->addUnsuccessfulMemAlloc();
-// }
-
-// void MainWindow::on_upload_telem_clicked()
-// {
-//     // Upload telemetry, and then receive message back to see what we write
-//     if (1) {
-//         showSuccessfulMemAlloc();
-//     } else {
-//         // showUnsuccessfulMemAlloc();
-//     }
-// }
-
-void MainWindow::showCOMConnection()
-{
-    if (true) {
-        QMessageBox::information(this, "Connection Successful", "Serial port connected");
-        logWindow->addCOMConnected();
-        // QIcon connected = new QIcon();
-        // ui->actionConnect->setIcon();
-    }
-    else {
-        QMessageBox::information(this, "Connection Not Successful", "Error. Failed to connect to serial port.");
-    }
 }
 
 void MainWindow::on_actionFlight_Logs_triggered()
