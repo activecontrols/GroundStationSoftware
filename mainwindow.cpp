@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     stackedWidget->setCurrentIndex(0);
 
+
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MainWindow::updateClock);
     timer->start(1000);
@@ -133,28 +134,35 @@ void MainWindow::initWindow()
 
     connect(flightDataAction, &QAction::triggered, this, [=]() { stackedWidget->setCurrentIndex(0); });
     connect(flightGraphsAction, &QAction::triggered, this, [=]() { stackedWidget->setCurrentIndex(1); });
+    // connect(flightTestsAction, &QAction::triggered, this, [=]() { stackedWidget->setCurrentIndex(2); });
+    // connect(connectAction, &QAction::triggered, this, [=]() { stackedWidget->setCurrentIndex(3); });
 
     flightData = new FlightData(this);
     flightGraphs = new FlightGraphs(this);
+    // serialConnection = new SerialConnection(this);
 
     stackedWidget = new QStackedWidget();
     stackedWidget->addWidget(flightData);
     stackedWidget->addWidget(flightGraphs);
+    // stackedWidget->addWidget(serialConnection);
+
     setCentralWidget(stackedWidget);
 }
 
 void MainWindow::initSerialPort()
 {
+    qDebug() << "Initializing Port\n";
     // Set the serial port name and parameters (modify COM port as needed)
-    serial->setPortName("COM1");
+    serial->setPortName("COM3");
     serial->setBaudRate(QSerialPort::Baud9600);
     serial->setDataBits(QSerialPort::Data8);
     serial->setParity(QSerialPort::NoParity);
     serial->setStopBits(QSerialPort::OneStop);
     serial->setFlowControl(QSerialPort::NoFlowControl);
 
+    qDebug() << "Trying to open port\n";
     // Open the serial port
-    if (serial->open(QIODevice::ReadOnly)) {
+    if (serial->open(QIODevice::ReadWrite)) {
         connect(serial, &QSerialPort::readyRead, this, &MainWindow::onDataReceived);
         qDebug() << "Serial port opened successfully!";
     } else {

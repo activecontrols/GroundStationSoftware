@@ -117,6 +117,6 @@ void FlightData::on_uploadButton_clicked()
 
 void FlightData::updateTelemetryDisplay(const TelemetryData &data)
 {
-    qDebug() << "Updating telemetry display";
+    // qDebug() << "Updating telemetry display";
     controlSystemStateWidget->updateData(data);
 }

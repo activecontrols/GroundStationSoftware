@@ -80,7 +80,7 @@ bool MyQ3DScatter::initialize()
 
 void MyQ3DScatter::updateGraph(QVector3D data)
 {
-    qDebug() << "Update graph";
+    // qDebug() << "Update graph";
     scatterGraph->seriesList().at(0)->dataProxy()->addItem(data);
 }
 

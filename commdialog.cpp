@@ -15,8 +15,10 @@ CommDialog::CommDialog(QWidget *parent) :
     m_runButton(new QPushButton(tr("Start")))
 {
     const auto infos = QSerialPortInfo::availablePorts();
-    for (const QSerialPortInfo &info : infos)
+    for (const QSerialPortInfo &info : infos) {
+        qDebug() << info.portName();
         m_serialPortComboBox->addItem(info.portName());
+    }
 
     auto mainLayout = new QGridLayout;
     mainLayout->addWidget(m_serialPortLabel, 0, 0);
@@ -70,5 +72,6 @@ CommDialog::CommDialog(QWidget *parent) :
 
 void CommDialog::activateRunButton()
 {
+    qDebug() << "Activating run button???\n";
     m_runButton->setEnabled(true);
 }

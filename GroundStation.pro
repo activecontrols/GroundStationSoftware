@@ -16,6 +16,7 @@ SOURCES += \
     axesinputhandler.cpp \
     camera.cpp \
     commdialog.cpp \
+    pages/serialconnection.cpp \
     widgets/controlsystemstatewidget.cpp \
     graphs/linegraph.cpp \
     graphs/myq3dscatter.cpp \
@@ -32,6 +33,7 @@ HEADERS += \
     axesinputhandler.h \
     camera.h \
     commdialog.h \
+    pages/serialconnection.h \
     widgets/controlsystemstatewidget.h \
     graphs/linegraph.h \
     graphs/myq3dscatter.h \
