@@ -20,30 +20,42 @@ SerialConnection::SerialConnection(QWidget *parent)
     connect(m_connectButton, &QPushButton::clicked,
             this, &SerialConnection::onConnectButtonClicked);
 
-    // graphicsView = new QGraphicsView();
-    // graphicsView->setMinimumSize(1000, 775);
-    // scene = new QGraphicsScene();
-    // graphicsView->setScene(scene);
-
-    // layout = new QVBoxLayout();
-    // layout->addWidget(graphicsView);
-    // layout->addWidget(m_connectButton);
-    // layout->addWidget(m_comboBox);
-    // setLayout(layout);
-    // setStyleSheet("background-color: white;");
+    layout = new QVBoxLayout();
+    layout->addWidget(m_connectButton);
+    layout->addWidget(m_comboBox);
+    setLayout(layout);
+    setStyleSheet("background-color: white;");
 }
 
 SerialConnection::~SerialConnection()
 {
-    delete scene;
     delete layout;
-    delete graphicsView;
 }
 
 
 void SerialConnection::onConnectButtonClicked()
 {
+    m_connectButton->setEnabled(false);
+    QString serialLoc  =  m_comboBox->currentData().toString();
 
+    if (m_serial->isOpen()) {
+        qDebug() << "Serial already connected, disconnecting!";
+        m_serial->close();
+    }
+
+    m_serial->setPortName(serialLoc);
+    m_serial->setBaudRate(QSerialPort::Baud115200);
+    m_serial->setDataBits(QSerialPort::Data8);
+    m_serial->setParity(QSerialPort::NoParity);
+    m_serial->setStopBits(QSerialPort::OneStop);
+    m_serial->setFlowControl(QSerialPort::NoFlowControl);
+
+    if(m_serial->open(QIODevice::ReadWrite)) {
+        qDebug() << "SERIAL: OK!";
+    } else {
+        qDebug() << "SERIAL: ERROR!";
+    }
+    m_connectButton->setEnabled(true);
 }
 
 void SerialConnection::updateSerialPorts()

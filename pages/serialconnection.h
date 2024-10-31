@@ -30,8 +30,6 @@ private:
     QPushButton* m_connectButton;
     QComboBox* m_comboBox;
 
-    QGraphicsView *graphicsView;
-    QGraphicsScene *scene;
     QVBoxLayout *layout;
 
     void updateSerialPorts();
