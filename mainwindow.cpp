@@ -70,10 +70,10 @@ void MainWindow::initWindow()
 {
     menuBar = new QMenuBar();
     QMenu *fileMenu = menuBar->addMenu("File");
-    QAction *exportDataAction = fileMenu->addAction("Export Data");
+    fileMenu->addAction("Export Data");
     QMenu *visualMenu = menuBar->addMenu("Visual");
-    QAction *twoDGraphAction = visualMenu->addAction("2D Graph");
-    QAction *threeDGraphAction = visualMenu->addAction("3D Graph");
+    visualMenu->addAction("2D Graph");
+    visualMenu->addAction("3D Graph");
 
     setMenuBar(menuBar);
 
@@ -135,15 +135,17 @@ void MainWindow::initWindow()
     connect(flightDataAction, &QAction::triggered, this, [=]() { stackedWidget->setCurrentIndex(0); });
     connect(flightGraphsAction, &QAction::triggered, this, [=]() { stackedWidget->setCurrentIndex(1); });
     // connect(flightTestsAction, &QAction::triggered, this, [=]() { stackedWidget->setCurrentIndex(2); });
-    // connect(connectAction, &QAction::triggered, this, [=]() { stackedWidget->setCurrentIndex(3); });
+    connect(connectAction, &QAction::triggered, this, [=]() { stackedWidget->setCurrentIndex(2); });
 
     flightData = new FlightData(this);
     flightGraphs = new FlightGraphs(this);
+    serialConnection = new SerialConnection(this);
     // serialConnection = new SerialConnection(this);
 
     stackedWidget = new QStackedWidget();
     stackedWidget->addWidget(flightData);
     stackedWidget->addWidget(flightGraphs);
+    stackedWidget->addWidget(serialConnection);
     // stackedWidget->addWidget(serialConnection);
 
     setCentralWidget(stackedWidget);

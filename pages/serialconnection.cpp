@@ -32,8 +32,9 @@ SerialConnection::SerialConnection(QWidget *parent)
 
     QVBoxLayout *layout = new QVBoxLayout();
     layout->addWidget(graphicsView);
+    layout->addWidget(m_connectButton);
     setLayout(layout);
-    setStyleSheet("background-color: black;");
+    setStyleSheet("background-color: white;");
 }
 
 SerialConnection::~SerialConnection()

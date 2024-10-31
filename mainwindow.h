@@ -8,6 +8,7 @@
 #include <QToolBar>
 #include <flightdata.h>
 #include <flightgraphs.h>
+#include <serialconnection.h>
 #include "commdialog.h"
 #include "logwindow.h"
 #include "telemetrymodel.h"
@@ -35,6 +36,7 @@ private:
     QToolBar *toolBar;
     FlightData *flightData;
     FlightGraphs *flightGraphs;
+    SerialConnection *serialConnection;
     QLabel *clock;
 
     LogWindow *logWindow;
