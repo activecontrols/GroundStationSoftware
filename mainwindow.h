@@ -56,7 +56,7 @@ private slots:
     void onDataReceived();
     // void on_upload_telem_clicked();
     // void on_launch_button_released();
-    // void on_connect_action_triggered();
+    void onConnectActionTriggered();
     // void on_log_action_triggered();
     void on_actionFlight_Logs_triggered();
     void on_action3D_Graph_triggered();

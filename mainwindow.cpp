@@ -133,6 +133,7 @@ void MainWindow::initWindow()
 
     connect(flightDataAction, &QAction::triggered, this, [=]() { stackedWidget->setCurrentIndex(0); });
     connect(flightGraphsAction, &QAction::triggered, this, [=]() { stackedWidget->setCurrentIndex(1); });
+    connect(connectAction, &QAction::triggered, this, &MainWindow::onConnectActionTriggered);
 
     flightData = new FlightData(this);
     flightGraphs = new FlightGraphs(this);
@@ -245,6 +246,11 @@ void MainWindow::updateClock()
 //         // showUnsuccessfulMemAlloc();
 //     }
 // }
+
+void MainWindow::onConnectActionTriggered()
+{
+    commDialog->show();
+}
 
 void MainWindow::showCOMConnection()
 {
