@@ -25,7 +25,7 @@ int writeToSerialPort(int fd, const char* buffer, size_t size)
 
 void fmav_serial_write_char(char c)
 {
-    global_conn.write(&c);
+    global_conn->write(&c);
 }
 
 void printTelem(const fmav_control_system_state_t& telem) {

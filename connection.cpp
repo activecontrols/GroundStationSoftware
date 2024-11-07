@@ -2,18 +2,20 @@
 
 Connection::Connection()
 {
-    connect(m_serial, &QSerialPort::readyRead, this, [&](){ emit readyRead(); });
-    connect(m_socket, &QSerialPort::readyRead, this, [&](){ emit readyRead(); });
+
+
 }
 
 void Connection::initSerial(QSerialPort* serial)
 {
     m_serial = serial;
+    connect(m_serial, &QSerialPort::readyRead, this, [&](){ emit readyRead(); });
 }
 
 void Connection::initSocket(QUdpSocket* udpfd)
 {
     m_socket = udpfd;
+    connect(m_socket, &QUdpSocket::readyRead, this, [&](){ emit readyRead(); });
 }
 
 void Connection::write(const char* data)
