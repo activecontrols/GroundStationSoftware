@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(telemetryModel, &TelemetryModel::telemetryDataAdded, flightData, &FlightData::updateTelemetryDisplay);
     connect(telemetryModel, &TelemetryModel::telemetryDataAdded, flightGraphs, &FlightGraphs::updateGraphs);
-    connect(serialConnection, &SerialConnection::updateSerial, this, &MainWindow::onUpdateSerial);
+    connect(commDialog, &CommDialog::updateSerial, this, &MainWindow::onUpdateSerial);
 
 }
 
@@ -137,18 +137,14 @@ void MainWindow::initWindow()
     connect(flightDataAction, &QAction::triggered, this, [=]() { stackedWidget->setCurrentIndex(0); });
     connect(flightGraphsAction, &QAction::triggered, this, [=]() { stackedWidget->setCurrentIndex(1); });
     // connect(flightTestsAction, &QAction::triggered, this, [=]() { stackedWidget->setCurrentIndex(2); });
-    connect(connectAction, &QAction::triggered, this, [=]() { stackedWidget->setCurrentIndex(2); });
+    connect(connectAction, &QAction::triggered, this, [=]() { commDialog->show(); });
 
     flightData = new FlightData(this);
     flightGraphs = new FlightGraphs(this);
-    serialConnection = new SerialConnection(this);
-    // serialConnection = new SerialConnection(this);
 
     stackedWidget = new QStackedWidget();
     stackedWidget->addWidget(flightData);
     stackedWidget->addWidget(flightGraphs);
-    stackedWidget->addWidget(serialConnection);
-    // stackedWidget->addWidget(serialConnection);
 
     setCentralWidget(stackedWidget);
 }

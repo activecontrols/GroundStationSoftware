@@ -8,70 +8,77 @@
 
 CommDialog::CommDialog(QWidget *parent) :
     QDialog(parent),
-    m_serialPortLabel(new QLabel(tr("Serial port:"))),
     m_serialPortComboBox(new QComboBox),
+    m_serial{ new QSerialPort(this) },
+    m_scanTimer{ new QTimer(this) },
+    m_connectButton{ new QPushButton("Connect", this) },
+    m_serialPortLabel(new QLabel(tr("Serial port:"))),
     m_trafficLabel(new QLabel(tr("No traffic."))),
-    m_statusLabel(new QLabel(tr("Status: Not running."))),
-    m_runButton(new QPushButton(tr("Start")))
+    m_statusLabel(new QLabel(tr("Status: Not running.")))
 {
-    const auto infos = QSerialPortInfo::availablePorts();
-    for (const QSerialPortInfo &info : infos) {
-        qDebug() << info.portName();
-        m_serialPortComboBox->addItem(info.portName());
-    }
+    updateSerialPorts();
+
+    m_scanTimer->setInterval(5000);
+    m_scanTimer->start();
+
+    connect(m_scanTimer, &QTimer::timeout,
+            this, &CommDialog::updateSerialPorts);
+
+    connect(m_connectButton, &QPushButton::clicked,
+            this, &CommDialog::onConnectButtonClicked);
 
     auto mainLayout = new QGridLayout;
     mainLayout->addWidget(m_serialPortLabel, 0, 0);
     mainLayout->addWidget(m_serialPortComboBox, 0, 1);
-    mainLayout->addWidget(m_runButton, 0, 2, 2, 1);
+    mainLayout->addWidget(m_connectButton, 0, 2, 2, 1);
     mainLayout->addWidget(m_trafficLabel, 3, 0, 1, 4);
     mainLayout->addWidget(m_statusLabel, 4, 0, 1, 5);
     setLayout(mainLayout);
 
     setWindowTitle(tr("COM Port Connection"));
     m_serialPortComboBox->setFocus();
-
-    // connect(m_runButton, &QPushButton::clicked, this, &CommDialog::startReceiver);
-    // connect(&m_thread, &ReceiverThread::request, this,&CommDialog::showRequest);
-    // connect(&m_thread, &ReceiverThread::error, this, &CommDialog::processError);
-    // connect(&m_thread, &ReceiverThread::timeout, this, &CommDialog::processTimeout);
-
-    connect(m_serialPortComboBox, &QComboBox::currentIndexChanged, this, &CommDialog::activateRunButton);
 }
 
-// void CommDialog::startReceiver()
-// {
-//     m_runButton->setEnabled(false);
-//     m_statusLabel->setText(tr("Status: Running, connected to port %1.")
-//                                .arg(m_serialPortComboBox->currentText()));
-//     // m_thread.startReceiver(m_serialPortComboBox->currentText());
-// }
 
-// void CommDialog::showRequest(const QString &s)
-// {
-//     m_trafficLabel->setText(tr("Traffic, transaction #%1:"
-//                                "\n\r-request: %2"
-//                                "\n\r-response: %3")
-//                                 .arg(++m_transactionCount)
-//                                 .arg(s)
-//                                 .arg(m_responseLineEdit->text()));
-// }
-
-// void CommDialog::processError(const QString &s)
-// {
-//     activateRunButton();
-//     m_statusLabel->setText(tr("Status: Not running, %1.").arg(s));
-//     m_trafficLabel->setText(tr("No traffic."));
-// }
-
-// void CommDialog::processTimeout(const QString &s)
-// {
-//     m_statusLabel->setText(tr("Status: Running, %1.").arg(s));
-//     m_trafficLabel->setText(tr("No traffic."));
-// }
-
-void CommDialog::activateRunButton()
+void CommDialog::onConnectButtonClicked()
 {
-    qDebug() << "Activating run button???\n";
-    m_runButton->setEnabled(true);
+    m_connectButton->setEnabled(false);
+    QString serialLoc  =  m_serialPortComboBox->currentData().toString();
+
+    if (m_serial->isOpen())
+    {
+        qDebug() << "Serial already connected, disconnecting!";
+        m_serial->close();
+    }
+    else
+    {
+        m_serial->setPortName(serialLoc);
+        m_serial->setBaudRate(QSerialPort::Baud115200);
+        m_serial->setDataBits(QSerialPort::Data8);
+        m_serial->setParity(QSerialPort::NoParity);
+        m_serial->setStopBits(QSerialPort::OneStop);
+        m_serial->setFlowControl(QSerialPort::NoFlowControl);
+        if(m_serial->open(QIODevice::ReadWrite)) {
+            qDebug() << "SERIAL: OK!";
+        } else {
+            qDebug() << "SERIAL: ERROR!";
+        }
+    }
+    m_connectButton->setEnabled(true);
+    emit updateSerial(m_serial);
+}
+
+void CommDialog::updateSerialPorts()
+{
+    m_serialPortList = QSerialPortInfo::availablePorts();
+
+    m_serialPortComboBox->clear();
+    for (QSerialPortInfo& port : m_serialPortList) {
+        m_serialPortComboBox->addItem(port.portName(), port.systemLocation());
+    }
+}
+
+const QSerialPort* CommDialog::getSerial() const
+{
+    return m_serial;
 }

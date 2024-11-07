@@ -41,8 +41,6 @@ private:
     // pages
     FlightData *flightData;
     FlightGraphs *flightGraphs;
-    SerialConnection *serialConnection;
-
 
     LogWindow *logWindow;
     CommDialog *commDialog;

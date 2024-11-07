@@ -49,6 +49,7 @@ private:
     TelemetryModel* telemModel;
 
     std::unordered_map<std::string, uint16_t> commandMap;
+    uint64_t timeOnStartup;
 };
 
 #endif

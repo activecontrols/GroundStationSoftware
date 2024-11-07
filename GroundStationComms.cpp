@@ -36,7 +36,7 @@ void printTelem(const fmav_control_system_state_t& telem) {
     qDebug() << "roll_rate: " << telem.roll_rate << ", pitch_rate: " << telem.pitch_rate << ", yaw_rate: " << telem.yaw_rate << '\n';
 }
 
-GroundCommsManager::GroundCommsManager() {}
+GroundCommsManager::GroundCommsManager() : timeOnStartup(QDateTime::currentMSecsSinceEpoch())  {}
 
 void GroundCommsManager::init(QSerialPort* serial, TelemetryModel* model)
 {
@@ -81,7 +81,7 @@ void GroundCommsManager::telemToModel(const fmav_control_system_state_t& telem_p
     TelemetryData data;
     // data.setBattery(telem_payload....);
     // data.setTemperature(telem_payload.);
-    data.setTimestamp((float) (QDateTime::currentMSecsSinceEpoch())/1000.0);
+    data.setTimestamp((float) (QDateTime::currentMSecsSinceEpoch() - timeOnStartup)/1000.0);
     // Make all points relative to the previous point
     data.setXPos(telem_payload.x_pos);
     data.setYPos(telem_payload.y_pos);
