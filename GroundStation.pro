@@ -17,6 +17,7 @@ SOURCES += \
     axesinputhandler.cpp \
     camera.cpp \
     commdialog.cpp \
+    connection.cpp \
     pages/serialconnection.cpp \
     widgets/controlsystemstatewidget.cpp \
     graphs/linegraph.cpp \
@@ -35,6 +36,7 @@ HEADERS += \
     axesinputhandler.h \
     camera.h \
     commdialog.h \
+    connection.h \
     pages/serialconnection.h \
     widgets/controlsystemstatewidget.h \
     graphs/linegraph.h \

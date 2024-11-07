@@ -6,11 +6,9 @@
 #include <QDateTime>
 
 QSerialPort* global_serial;
+int udpfd = 0;
 
-void fmav_serial_write_char(char c) 
-{
-    global_serial->write(&c);
-}
+
 
 int readMAVLinkMessage(int fd, char buffer[MAVLINK_MESSAGE_SIZE])
 {
@@ -21,6 +19,14 @@ int readMAVLinkMessage(int fd, char buffer[MAVLINK_MESSAGE_SIZE])
 int writeToSerialPort(int fd, const char* buffer, size_t size)
 {
     return write(fd, buffer, size);
+}
+
+void fmav_serial_write_char(char c)
+{
+    if (global_serial->isOpen())
+        global_serial->write(&c);
+    else if (udpfd > 0)
+        writeToSerialPort(udpfd, &c, 1);
 }
 
 void printTelem(const fmav_control_system_state_t& telem) {
@@ -38,9 +44,10 @@ void printTelem(const fmav_control_system_state_t& telem) {
 
 GroundCommsManager::GroundCommsManager() : timeOnStartup(QDateTime::currentMSecsSinceEpoch())  {}
 
-void GroundCommsManager::init(QSerialPort* serial, TelemetryModel* model)
+void GroundCommsManager::init(QSerialPort* serial, int _udpfd, TelemetryModel* model)
 {
     global_serial = serial;
+    udpfd = _udpfd;
     telemModel = model;
 }
 

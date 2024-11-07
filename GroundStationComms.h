@@ -31,7 +31,7 @@ int writeToSerialPort(int fd, const char* buffer, size_t size);
 class GroundCommsManager {
 public:
     GroundCommsManager();
-    void init(QSerialPort* serial, TelemetryModel* model);
+    void init(QSerialPort* serial, int _udpfd, TelemetryModel* model);
     void spin(QByteArray buffer);
     void sendCommand(const std::string& command, float params[7], uint8_t target_system, uint8_t target_component, uint8_t confirmation); 
 
