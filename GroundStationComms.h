@@ -16,7 +16,7 @@ void fmav_serial_write_char(char c);
 
 #include "./message_lib/pscom/pscom.h"
 #include "telemetrymodel.h"
-#include <QSerialPort>
+#include <connection.h>
 #include <QByteArray>
 #include <stdint.h>
 #include <string>
@@ -31,7 +31,7 @@ int writeToSerialPort(int fd, const char* buffer, size_t size);
 class GroundCommsManager {
 public:
     GroundCommsManager();
-    void init(QSerialPort* serial, int _udpfd, TelemetryModel* model);
+    void init(Connection* conn, TelemetryModel* model);
     void spin(QByteArray buffer);
     void sendCommand(const std::string& command, float params[7], uint8_t target_system, uint8_t target_component, uint8_t confirmation); 
 

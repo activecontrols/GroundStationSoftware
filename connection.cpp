@@ -6,18 +6,22 @@ Connection::Connection()
     connect(m_socket, &QSerialPort::readyRead, this, [&](){ emit readyRead(); });
 }
 
-// initializing connection to either serial or socket
-// prioritize serial, so if serial is connected, set pointer to udp socket to null
-void Connection::init(QSerialPort* serial, QUdpSocket* socket)
+void Connection::initSerial(QSerialPort* serial)
 {
     m_serial = serial;
-    if (m_serial != nullptr && !m_serial->isOpen())
-    {
-        m_serial = nullptr;
-        m_socket = socket;
-    }
-    else
-        m_socket = nullptr;
+}
+
+void Connection::initSocket(QUdpSocket* udpfd)
+{
+    m_socket = udpfd;
+}
+
+void Connection::write(const char* data)
+{
+    if (m_socket->isOpen())
+        m_socket->write(data);
+    else if (m_socket != nullptr)
+        m_socket->write(data);
 }
 
 QByteArray Connection::readAll()

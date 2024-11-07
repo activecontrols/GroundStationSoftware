@@ -4,9 +4,11 @@
 #include <unistd.h>
 #include <QDebug>
 #include <QDateTime>
+#include <QUdpSocket>
 
-QSerialPort* global_serial;
-int udpfd = 0;
+// I have globals because fmav_serial_write_char has no overloads I believe :(
+// fmav_serial_write_char is necessary for the mav link library
+Connection* global_conn;
 
 
 
@@ -23,10 +25,7 @@ int writeToSerialPort(int fd, const char* buffer, size_t size)
 
 void fmav_serial_write_char(char c)
 {
-    if (global_serial->isOpen())
-        global_serial->write(&c);
-    else if (udpfd > 0)
-        writeToSerialPort(udpfd, &c, 1);
+    global_conn.write(&c);
 }
 
 void printTelem(const fmav_control_system_state_t& telem) {
@@ -44,10 +43,9 @@ void printTelem(const fmav_control_system_state_t& telem) {
 
 GroundCommsManager::GroundCommsManager() : timeOnStartup(QDateTime::currentMSecsSinceEpoch())  {}
 
-void GroundCommsManager::init(QSerialPort* serial, int _udpfd, TelemetryModel* model)
+void GroundCommsManager::init(Connection* conn, TelemetryModel* model)
 {
-    global_serial = serial;
-    udpfd = _udpfd;
+    global_conn = conn;
     telemModel = model;
 }
 

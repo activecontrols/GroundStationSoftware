@@ -13,8 +13,9 @@ class Connection : public QObject
 public:
     Connection();
     QByteArray readAll();
-    QByteArray writeAll(const QByteArray& data);
-    void init(QSerialPort* serial, QUdpSocket* udpfd);
+    void write(const char* data);
+    void initSerial(QSerialPort* serial);
+    void initSocket(QUdpSocket* udpfd);
 signals:
     void readyRead();
 

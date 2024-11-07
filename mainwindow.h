@@ -3,12 +3,12 @@
 
 #include <QMainWindow>
 #include <QTimer>
-#include <QSerialPort>
 #include <QStackedWidget>
 #include <QToolBar>
 #include <flightdata.h>
 #include <flightgraphs.h>
 #include <serialconnection.h>
+#include <connection.h>
 #include "commdialog.h"
 #include "logwindow.h"
 #include "telemetrymodel.h"
@@ -45,12 +45,12 @@ private:
     LogWindow *logWindow;
     CommDialog *commDialog;
     QTimer *timer;
-    QSerialPort *serial;
     QFile *telemetryFile;
     QTextStream *stream;
     TelemetryModel *telemetryModel;
 
     GroundCommsManager comms;
+    Connection conn;
 
     void initWindow();
     void initTelemetryFile();
@@ -60,7 +60,7 @@ private:
 
 private slots:
     void onDataReceived();
-    void onUpdateSerial(QSerialPort* newSerial);
+    void onUpdateSerial(QSerialPort* newSerial, QUdpSocket* newUdp);
     // void on_upload_telem_clicked();
     // void on_launch_button_released();
     // void on_connect_action_triggered();

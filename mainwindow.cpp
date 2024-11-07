@@ -32,40 +32,38 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(telemetryModel, &TelemetryModel::telemetryDataAdded, flightData, &FlightData::updateTelemetryDisplay);
     connect(telemetryModel, &TelemetryModel::telemetryDataAdded, flightGraphs, &FlightGraphs::updateGraphs);
     connect(commDialog, &CommDialog::updateSerial, this, &MainWindow::onUpdateSerial);
+    connect(&conn, &Connection::readyRead, this, &MainWindow::onDataReceived);
 
 }
 
 MainWindow::~MainWindow()
 {
-    if (serial->isOpen()) {
-        serial->close();
-    }
     delete stackedWidget;
     delete timer;
     delete simulateTimer;
     delete telemetryModel;
-    delete serial;
 }
 
 // For when data is received from the serial port
 void MainWindow::onDataReceived()
 {
-    QByteArray data = serial->readAll();
+    QByteArray data = conn.readAll();
     comms.spin(data);
 }
 
-void MainWindow::onUpdateSerial(QSerialPort* newSerial)
+void MainWindow::onUpdateSerial(QSerialPort* newSerial, QUdpSocket* newUdp)
 {
-    serial = newSerial;
-    if (serial->isOpen())
+    if (newSerial->isOpen())
     {
         QMessageBox::information(this, "Connection Successful", "Serial port connected");
         logWindow->addCOMConnected();
-        comms.init(serial, -1, telemetryModel);
-        connect(serial, &QSerialPort::readyRead, this, &MainWindow::onDataReceived);
+        conn.initSerial(newSerial);
+        comms.init(&conn, telemetryModel);
     }
     else
         QMessageBox::information(this, "Connection Cut", "Serial port disconnected");
+
+    conn.initSocket(newUdp);
 }
 
 void MainWindow::initWindow()
